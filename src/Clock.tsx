@@ -9,6 +9,7 @@ export default function Clock() {
 
     function clockPause() { setClockrunning(false); }
 
+
   useEffect(() => {
     const timer = setInterval(() => {
       if (!clockrunning) return;
@@ -16,10 +17,27 @@ export default function Clock() {
     }, 1000);
     return () => clearTimeout(timer);
   });
+    
+    function getTimeMinute() {
+        const oristr = String(Math.floor(timenow / 60));
+        if (oristr.length == 1) {
+            return "0" + oristr;
+        } else {
+            return oristr;
+        }
+    }
+    function getTimeSecond() {
+        const oristr = String(timenow - 60 * Math.floor(timenow / 60));
+        if (oristr.length == 1) {
+            return "0" + oristr;
+        } else {
+            return oristr;
+        }
+    }
 
   return (
     <div className="">
-      <div>{timenow}</div>
+        <div>{getTimeMinute()} : {getTimeSecond()}</div>
       <button className="bg-white text-black mr-2" onClick={clockStart}>
         start
       </button>
