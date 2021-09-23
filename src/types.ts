@@ -1,12 +1,16 @@
-
 export interface Day {
-    clocks: Clock[];
+  clocks: Clock[];
 }
 export interface Days {
-    days: Day[];
+  days: Day[];
 }
 
 export interface Clock {
-    startTime: Date;
-    endTime: Date;
+  startTime: Date;
+  endTime: Date;
+  duration: number;
+}
+
+export interface ClockConfiguration {
+  duration: number;
 }
