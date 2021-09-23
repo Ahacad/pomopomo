@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Clock from "./Clock";
-import {increment} from './store/dataSlice'
+import { newclock } from "./store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
           open data file
         </button>
         {v}
-        <button onClick={() => dispatch(increment())}>upd</button>
+        <button onClick={() => dispatch(newclock("3"))}>upd</button>
         <Clock />
         <p>this is: {text}</p>
       </header>
