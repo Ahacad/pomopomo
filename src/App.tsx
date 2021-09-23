@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Clock from "./Clock";
+import {increment} from './store/dataSlice'
+import { useSelector, useDispatch } from "react-redux";
 
 function App() {
   const [count, setCount] = useState(0);
   const [text, setText] = useState("");
+
+  const dispatch = useDispatch();
+  const v = useSelector((state) => state.data.value);
 
   const handleClick = async () => {
     let fileHandle;
@@ -16,7 +20,9 @@ function App() {
       let j = JSON.parse(data);
       setText(j.a);
     } catch (e) {
-      window.alert("invalid json data file! Please find the correct data file.");
+      window.alert(
+        "invalid json data file! Please find the correct data file."
+      );
     }
   };
 
@@ -26,6 +32,8 @@ function App() {
         <button className="bg-white text-black" onClick={handleClick}>
           open data file
         </button>
+        {v}
+        <button onClick={() => dispatch(increment())}>upd</button>
         <Clock />
         <p>this is: {text}</p>
       </header>
