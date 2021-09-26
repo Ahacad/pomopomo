@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Clock from "./Clock";
+import { notify } from "./util/notification";
 import { newclock } from "./store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -24,20 +25,6 @@ function App() {
       );
     }
   };
-
-  function notify(title: string, options: NotificationOptions) {
-    if (!("Notification" in window)) {
-      console.warn("Notification not supported in this browser");
-    } else if (Notification.permission === "granted") {
-      let notification = new Notification(title, options);
-    } else if (Notification.permission !== "denied") {
-      Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-          let notification = new Notification(title, options);
-        }
-      });
-    }
-  }
 
   return (
     <div className="App">
