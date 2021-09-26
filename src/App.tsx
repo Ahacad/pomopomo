@@ -9,7 +9,6 @@ function App() {
   const [text, setText] = useState("");
 
   const dispatch = useDispatch();
-  const v = useSelector((state) => state.data.value);
 
   const handleClick = async () => {
     let fileHandle;
@@ -26,16 +25,25 @@ function App() {
     }
   };
 
+  function notify(title: string, options: NotificationOptions) {
+    if (!("Notification" in window)) {
+      console.warn("Notification not supported in this browser");
+    } else if (Notification.permission === "granted") {
+      let notification = new Notification(title, options);
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          let notification = new Notification(title, options);
+        }
+      });
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <button className="bg-white text-black" onClick={handleClick}>
-          open data file
-        </button>
-        {v}
-        <button onClick={() => dispatch(newclock("3"))}>upd</button>
+        <button onClick={() => notify("muster")}>upd</button>
         <Clock />
-        <p>this is: {text}</p>
       </header>
     </div>
   );
