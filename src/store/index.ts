@@ -23,12 +23,17 @@ export const saveState = (state: RootState) => {
   }
 };
 
+const loadedState = loadState();
+if (loadedState != undefined) {
+  loadedState.clock.clockRunning = false;
+}
+
 const store = configureStore({
   reducer: {
     data: dataReducer,
     clock: clockReducer,
   },
-  preloadedState: loadState(),
+  preloadedState: loadedState,
 });
 
 store.subscribe(() => {
