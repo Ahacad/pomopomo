@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { newclock } from "./store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { stop, start, reset, decrease } from "./store/clockSlice";
+import { notify } from "./util";
 
 export default function Clock() {
   const dispatch = useDispatch();
@@ -22,16 +23,18 @@ export default function Clock() {
   useEffect(() => {
     const timer = setInterval(() => {
       if (!clockRunning) return;
-      // TODO: when time counts down over,
-      // push newclock to data,
+
+      // pomodoro finished
       if (timenow == 0) {
         endTime = new Date();
 
+        notify("pomodoro finished!");
         dispatch(stop());
         dispatch(reset());
         return;
       }
 
+      // pomodoro starting
       if (timenow == duration) {
         startTime = new Date();
       }
