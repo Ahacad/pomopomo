@@ -1,4 +1,4 @@
-export function notify(title: string, options: NotificationOptions) {
+export function notify(title: string, options?: NotificationOptions) {
   if (!("Notification" in window)) {
     console.warn("Notification not supported in this browser");
   } else if (Notification.permission === "granted") {
