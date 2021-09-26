@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Clock from "./Clock";
-import { notify } from "./util/notification";
+import { notify } from "./util";
 import { newclock } from "./store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
 
