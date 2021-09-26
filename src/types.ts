@@ -12,5 +12,7 @@ export interface Clock {
 }
 
 export interface ClockConfiguration {
-  duration: number;
+  pomodoroDuration: number;
+  shortBreakDuration: number;
+  longBreakDuration: number;
 }
