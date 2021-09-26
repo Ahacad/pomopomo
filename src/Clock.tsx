@@ -37,7 +37,9 @@ export default function Clock() {
       }
       dispatch(decrease());
     }, 1000);
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+    };
   });
 
   function getTimeMinute(timenow: number) {
