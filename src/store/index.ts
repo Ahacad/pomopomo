@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import clockReducer from "./clockSlice";
+import configReducer from "./configSlice";
 import dataReducer from "./dataSlice";
 
 type RootState = ReturnType<typeof store.getState>;
@@ -32,6 +33,7 @@ const store = configureStore({
   reducer: {
     data: dataReducer,
     clock: clockReducer,
+    config: configReducer,
   },
   preloadedState: loadedState,
 });
