@@ -3,7 +3,7 @@ import { Clock } from "../types";
 
 export const clockSlice = createSlice({
   name: "clock",
-  initialState: { duration: 1500, timenow: 1500, clockRunning: false },
+  initialState: { duration: 5, timenow: 5, clockRunning: false },
   reducers: {
     stop: (state) => {
       state.clockRunning = false;
