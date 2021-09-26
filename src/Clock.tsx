@@ -1,39 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { newclock } from "./store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { stop, start, reset, decrease } from "./store/clockSlice";
 
 export default function Clock() {
-  const [alltime, setAlltime] = useState(1500);
-  const [timenow, setTimenow] = useState(1500);
-  const [clockrunning, setClockrunning] = useState(false);
+  const dispatch = useDispatch();
+  const timenow = useSelector((state) => state.clock.timenow);
+  const duration = useSelector((state) => state.clock.duration);
+  const clockRunning = useSelector((state) => state.clock.clockRunning);
 
   let startTime: Date, endTime: Date;
 
   function clockStart() {
-    setClockrunning(true);
+    dispatch(start());
   }
 
   function clockPause() {
-    setClockrunning(false);
+    dispatch(stop());
   }
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (!clockrunning) return;
+      if (!clockRunning) return;
       // TODO: when time counts down over,
       // push newclock to data,
       if (timenow == 0) {
         endTime = new Date();
 
-        setClockrunning(false);
-        setTimenow(alltime);
+        dispatch(stop());
+        dispatch(reset());
         return;
       }
 
-      if (timenow == alltime) {
+      if (timenow == duration) {
         startTime = new Date();
       }
-      setTimenow(timenow - 1);
+      dispatch(decrease());
     }, 1000);
     return () => clearTimeout(timer);
   });
@@ -58,7 +60,7 @@ export default function Clock() {
   return (
     <div className="">
       <div>
-        {getTimeMinute()} : {getTimeSecond()}
+        {getTimeMinute(timenow)} : {getTimeSecond(timenow)}
       </div>
       <button className="bg-white text-black mr-2" onClick={clockStart}>
         start

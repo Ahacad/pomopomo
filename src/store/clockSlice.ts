@@ -5,6 +5,12 @@ export const clockSlice = createSlice({
   name: "clock",
   initialState: { duration: 1500, timenow: 1500, clockRunning: false },
   reducers: {
+    stop: (state) => {
+      state.clockRunning = false;
+    },
+    start: (state) => {
+      state.clockRunning = true;
+    },
     decrease: (state) => {
       state.timenow -= 1;
     },
@@ -14,6 +20,6 @@ export const clockSlice = createSlice({
   },
 });
 
-export const { decrease, reset } = clockSlice.actions;
+export const { stop, start, decrease, reset } = clockSlice.actions;
 
 export default clockSlice.reducer;
