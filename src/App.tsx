@@ -10,6 +10,7 @@ function App() {
   const [text, setText] = useState("");
 
   const dispatch = useDispatch();
+  const theme = useSelector((state) => state.config.theme);
 
   const handleClick = async () => {
     let fileHandle;
@@ -26,9 +27,24 @@ function App() {
     }
   };
 
+  function getBackgroundColor() {
+    if (theme === "pomodoro") {
+      return "#db524d";
+    } else if (theme === "shortbreak") {
+      return "#468e91";
+    } else if (theme === "longbreak") {
+      return "#437ea8";
+    } else {
+      return "#db524d";
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
+      <header
+        className="App-header"
+        style={{ backgroundColor: getBackgroundColor() }}
+      >
         <button onClick={() => notify("muster")}>upd</button>
         <Clock />
       </header>

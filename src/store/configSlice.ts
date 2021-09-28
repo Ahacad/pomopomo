@@ -7,10 +7,21 @@ export const configSlice = createSlice({
     pomodoroDuration: 1500,
     shortBreakDuration: 180,
     longBreakDuration: 900,
+    theme: "pomodoro",
   },
-  reducers: {},
+  reducers: {
+    changeTheme: (state, action) => {
+      if (action.payload == "pomodoro") {
+        state.theme = "pomodoro";
+      } else if (action.payload == "shortbreak") {
+        state.theme = "shortbreak";
+      } else if (action.payload == "longbreak") {
+        state.theme = "longbreak";
+      }
+    },
+  },
 });
 
-export const {} = configSlice.actions;
+export const { changeTheme } = configSlice.actions;
 
 export default configSlice.reducer;

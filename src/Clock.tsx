@@ -21,17 +21,20 @@ export default function Clock() {
     dispatch(stop());
   }
 
+  function clockFinished() {
+    endTime = new Date();
+
+    notify("pomodoro finished!");
+    dispatch(stop());
+    dispatch(reset());
+  }
+
   useEffect(() => {
     const timer = setInterval(() => {
       if (!clockRunning) return;
 
-      // pomodoro finished
       if (timenow == 0) {
-        endTime = new Date();
-
-        notify("pomodoro finished!");
-        dispatch(stop());
-        dispatch(reset());
+        clockFinished();
         return;
       }
 
