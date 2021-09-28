@@ -17,9 +17,16 @@ export const clockSlice = createSlice({
     reset: (state) => {
       state.timenow = state.duration;
     },
+    setDuration: (state, action) => {
+      if (typeof action.payload === "number" && action.payload) {
+        state.duration = action.payload;
+        state.timenow = state.duration;
+        state.clockRunning = false;
+      }
+    },
   },
 });
 
-export const { stop, start, decrease, reset } = clockSlice.actions;
+export const { stop, start, decrease, reset, setDuration } = clockSlice.actions;
 
 export default clockSlice.reducer;
