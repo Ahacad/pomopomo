@@ -3,6 +3,7 @@ import { newclock } from "./store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { stop, start, reset, decrease } from "./store/clockSlice";
 import { notify } from "./util";
+import ClockOptions from "./components/ClockOptions";
 
 export default function Clock() {
   const dispatch = useDispatch();
@@ -64,14 +65,15 @@ export default function Clock() {
 
   return (
     <div className="">
+      <ClockOptions />
       <div>
         {getTimeMinute(timenow)} : {getTimeSecond(timenow)}
       </div>
-      <button className="bg-white text-black mr-2" onClick={clockStart}>
-        start
-      </button>
-      <button className="bg-white text-black mr-2" onClick={clockPause}>
-        pause
+      <button
+        className="bg-white text-black mr-2"
+        onClick={clockRunning ? clockPause : clockStart}
+      >
+        {clockRunning ? "pause" : "start"}
       </button>
       <button className="bg-white text-black mr-2">jump</button>
     </div>
