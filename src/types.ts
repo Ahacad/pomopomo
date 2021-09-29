@@ -3,9 +3,15 @@ export interface Day {
 }
 export interface Task {
   id: number;
+  // name for the task
   name: string;
+  // estimation for number of pomodoro needed
   estimation: number;
+  // actual finished pomodoro by far
+  finished: number;
+  // notes for the task
   note: string;
+  // linked project id
   projectId: number;
 }
 export interface Project {
