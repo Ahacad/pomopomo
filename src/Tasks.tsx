@@ -5,25 +5,32 @@ import { stop, start, reset, decrease } from "./store/clockSlice";
 import { notify } from "./util";
 
 import { RiCheckboxCircleLine } from "react-icons/ri";
+import { Task as taskType } from "./types";
 
-function Task() {
+function Task({ data }: { data: taskType }) {
   return (
-    <div className="bg-white w-full text-black flex">
+    <div className="bg-white w-full text-black flex justify-between">
       <div className="flex">
         <RiCheckboxCircleLine />
-        TASK
+        {data.name}
+      </div>
+      <div>
+        {data.finishedPomodoro} /{" "}
+        {data.estimationPomodoro ? data.estimationPomodoro : 0}
       </div>
     </div>
   );
 }
 
 export default function Tasks() {
+  const tasks = useSelector((state) => state.data.tasks);
+
   return (
     <div className="">
       <div className="w-96">
-        <Task />
-        <Task />
-        <Task />
+        {tasks.map((task: taskType) => (
+          <Task data={task} />
+        ))}
       </div>
     </div>
   );

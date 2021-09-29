@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Task } from "../types";
 
 function getTodayString(): string {
   const date = new Date();
@@ -13,7 +14,14 @@ function getTodayString(): string {
 
 export const dataSlice = createSlice({
   name: "data",
-  initialState: { days: {}, tasks: {}, projects: {} },
+  initialState: {
+    days: {},
+    tasks: [
+      { id: 1, name: "Task1", finishedPomodoro: 0 },
+      { id: 2, name: "Task2", finishedPomodoro: 0 },
+    ],
+    projects: {},
+  },
   reducers: {
     increment: (state, action) => {
       //

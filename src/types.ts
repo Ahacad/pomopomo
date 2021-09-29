@@ -6,13 +6,13 @@ export interface Task {
   // name for the task
   name: string;
   // estimation for number of pomodoro needed
-  estimation: number;
+  estimationPomodoro?: number;
   // actual finished pomodoro by far
-  finished: number;
+  finishedPomodoro?: number;
   // notes for the task
-  note: string;
+  note?: string;
   // linked project id
-  projectId: number;
+  projectId?: number;
 }
 export interface Project {
   id: number;
