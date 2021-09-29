@@ -13,7 +13,7 @@ function getTodayString(): string {
 
 export const dataSlice = createSlice({
   name: "data",
-  initialState: { days: {} },
+  initialState: { days: {}, tasks: {}, projects: {} },
   reducers: {
     increment: (state, action) => {
       //
@@ -25,7 +25,7 @@ export const dataSlice = createSlice({
       } else {
         state.days[today] = [action.payload];
       }
-        // TODO: save data to local file
+      // TODO: save data to local file
     },
   },
 });
