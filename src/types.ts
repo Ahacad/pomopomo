@@ -24,9 +24,11 @@ export interface Data {
 }
 
 export interface Clock {
-  startTime: Date;
-  endTime: Date;
+    // use string to represent time, avoid Redux problems
+  startTime: string;
+  endTime: string;
   duration: number;
+  taskId?: number;
 }
 
 export interface ClockConfiguration {

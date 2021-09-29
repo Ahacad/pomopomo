@@ -4,14 +4,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { stop, start, reset, decrease } from "./store/clockSlice";
 import { notify } from "./util";
 import ClockOptions from "./components/ClockOptions";
+import { Clock as typeClock } from "./types";
 
 export default function Clock() {
   const dispatch = useDispatch();
   const timenow = useSelector((state) => state.clock.timenow);
   const duration = useSelector((state) => state.clock.duration);
   const clockRunning = useSelector((state) => state.clock.clockRunning);
+  const selectedTask = useSelector((state) => state.data.selectedTask);
 
-  let startTime: Date, endTime: Date;
+  const [startTime, setStartTime] = useState("");
 
   function clockStart() {
     dispatch(start());
@@ -22,11 +24,19 @@ export default function Clock() {
   }
 
   function clockFinished() {
-    endTime = new Date();
+    let endTime = new Date().toString();
 
     notify("pomodoro finished!");
     dispatch(stop());
     dispatch(reset());
+    dispatch(
+      newclock({
+        startTime,
+        endTime,
+        duration,
+        taskId: selectedTask,
+      })
+    );
   }
 
   useEffect(() => {
@@ -40,7 +50,7 @@ export default function Clock() {
 
       // pomodoro starting
       if (timenow == duration) {
-        startTime = new Date();
+        setStartTime(new Date().toString());
       }
       dispatch(decrease());
     }, 1000);
