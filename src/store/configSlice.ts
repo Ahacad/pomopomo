@@ -8,6 +8,7 @@ export const configSlice = createSlice({
     shortBreakDuration: 180,
     longBreakDuration: 900,
     theme: "pomodoro",
+    selectedTask: 0,
   },
   reducers: {
     changeTheme: (state, action) => {

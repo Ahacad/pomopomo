@@ -1,5 +1,5 @@
 export interface Day {
-  clocks: Clock[];
+  [key: string]: Clock[];
 }
 export interface Task {
   id: number;
@@ -17,8 +17,8 @@ export interface Task {
 export interface Project {
   id: number;
 }
-export interface Days {
-  days: Day[];
+export interface Data {
+  days: Day;
   tasks: Task[];
   projects: Project[];
 }

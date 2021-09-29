@@ -1,7 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Task } from "../types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Clock } from "../types";
 
 function getTodayString(): string {
+  /*
+   * return uid for today, format is like "2021-09-21"
+   */
   const date = new Date();
   const [day, month, year] = [
     date.getDate(),
@@ -11,6 +14,11 @@ function getTodayString(): string {
 
   return String(year) + "-" + String(month) + "-" + String(day);
 }
+
+const getKeyValue =
+  <U extends keyof T, T extends object>(key: U) =>
+  (obj: T) =>
+    obj[key];
 
 export const dataSlice = createSlice({
   name: "data",
@@ -26,7 +34,7 @@ export const dataSlice = createSlice({
     increment: (state, action) => {
       //
     },
-    newclock: (state, action) => {
+    newclock: (state, action: PayloadAction<Clock>) => {
       const today: string = getTodayString();
       if (state.days[today]) {
         state.days[today].push(action.payload);
