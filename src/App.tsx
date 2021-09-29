@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Clock from "./Clock";
+import Tasks from "./Tasks";
 import { notify } from "./util";
 import { newclock } from "./store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -47,6 +48,7 @@ function App() {
       >
         <button onClick={() => notify("muster")}>upd</button>
         <Clock />
+        <Tasks />
       </header>
     </div>
   );
