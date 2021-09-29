@@ -7,6 +7,24 @@ import { RiCheckboxCircleLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Task as taskType } from "./types";
 
+function Config({ clickHandler }) {
+  function handleClick(e) {
+    e.stopPropagation();
+    clickHandler();
+  }
+  return (
+    <button
+      className="border-2 hover:bg-gray-300 w-10 pt-1 ml-2 pl-1"
+      onClick={handleClick}
+    >
+      <BsThreeDotsVertical className="" />
+    </button>
+  );
+}
+function EditForm() {
+    return <div></div>
+}
+
 function Task({ data }: { data: taskType }) {
   const dispatch = useDispatch();
   const selectedTask = useSelector((state) => state.data.selectedTask);
@@ -23,6 +41,9 @@ function Task({ data }: { data: taskType }) {
     }
     return "";
   }
+  function clickConfig() {
+      //
+  }
 
   return (
     <button
@@ -36,8 +57,9 @@ function Task({ data }: { data: taskType }) {
       <div className="flex">
         {data.finishedPomodoro} /{" "}
         {data.estimationPomodoro ? data.estimationPomodoro : 0}
-        <BsThreeDotsVertical className="mt-2 ml-1" />
+        <Config clickHandler={clickConfig} />
       </div>
+      <EditForm />
     </button>
   );
 }
@@ -51,6 +73,7 @@ export default function Tasks() {
         {tasks.map((task: taskType) => (
           <Task data={task} />
         ))}
+        <div className="">Add Task</div>
       </div>
     </div>
   );

@@ -53,6 +53,9 @@ export const dataSlice = createSlice({
         state.selectedTask = action.payload;
       }
     },
+    addTask: (state, action) => {
+      // TODO
+    },
   },
 });
 
