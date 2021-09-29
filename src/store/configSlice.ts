@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ClockConfiguration } from "../types";
 
 export const configSlice = createSlice({
@@ -8,7 +8,6 @@ export const configSlice = createSlice({
     shortBreakDuration: 180,
     longBreakDuration: 900,
     theme: "pomodoro",
-    selectedTask: 0,
   },
   reducers: {
     changeTheme: (state, action) => {

@@ -29,23 +29,33 @@ export const dataSlice = createSlice({
       { id: 2, name: "Task2", finishedPomodoro: 0 },
     ],
     projects: {},
+    selectedTask: 0,
   },
   reducers: {
     increment: (state, action) => {
       //
     },
     newclock: (state, action: PayloadAction<Clock>) => {
+      // TODO: save data to local file
       const today: string = getTodayString();
       if (state.days[today]) {
         state.days[today].push(action.payload);
       } else {
         state.days[today] = [action.payload];
       }
-      // TODO: save data to local file
+    },
+    selectTask: (state, action: PayloadAction<number>) => {
+      if (action.payload === 0) {
+        state.selectedTask = 0;
+      } else if (action.payload > state.tasks.length) {
+        state.selectedTask = 0;
+      } else {
+        state.selectedTask = action.payload;
+      }
     },
   },
 });
 
-export const { newclock } = dataSlice.actions;
+export const { newclock, selectTask } = dataSlice.actions;
 
 export default dataSlice.reducer;
