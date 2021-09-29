@@ -12,13 +12,13 @@ function Task({ data }: { data: taskType }) {
   return (
     <div className="bg-white w-full text-black flex justify-between p-4 mb-2 rounded-md">
       <div className="flex">
-        <RiCheckboxCircleLine />
+        <RiCheckboxCircleLine className="mt-2 mr-1" />
         {data.name}
       </div>
       <div className="flex">
         {data.finishedPomodoro} /{" "}
         {data.estimationPomodoro ? data.estimationPomodoro : 0}
-        <BsThreeDotsVertical />
+        <BsThreeDotsVertical className="mt-2 ml-1" />
       </div>
     </div>
   );
