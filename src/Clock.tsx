@@ -12,6 +12,7 @@ export default function Clock() {
   const duration = useSelector((state) => state.clock.duration);
   const clockRunning = useSelector((state) => state.clock.clockRunning);
   const selectedTask = useSelector((state) => state.data.selectedTask);
+  const theme = useSelector((state) => state.config.theme);
 
   const [startTime, setStartTime] = useState("");
 
@@ -29,14 +30,18 @@ export default function Clock() {
     notify("pomodoro finished!");
     dispatch(stop());
     dispatch(reset());
-    dispatch(
-      newclock({
-        startTime,
-        endTime,
-        duration,
-        taskId: selectedTask,
-      })
-    );
+
+    if (theme === "pomodoro") {
+      dispatch(
+        newclock({
+          startTime,
+          endTime,
+          duration,
+          taskId: selectedTask,
+        })
+      );
+    }
+      // TODO: maybe record rest also
   }
 
   useEffect(() => {

@@ -43,6 +43,14 @@ export const dataSlice = createSlice({
       } else {
         state.days[today] = [action.payload];
       }
+
+      if (action.payload.taskId) {
+        state.tasks.forEach((task) => {
+          if (task.id === action.payload.taskId) {
+            task.finishedPomodoro += 1;
+          }
+        });
+      }
     },
     selectTask: (state, action: PayloadAction<number>) => {
       if (action.payload === 0) {
@@ -52,9 +60,6 @@ export const dataSlice = createSlice({
       } else {
         state.selectedTask = action.payload;
       }
-    },
-    addTask: (state, action) => {
-      // TODO
     },
   },
 });
