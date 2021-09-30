@@ -46,6 +46,7 @@ export const dataSlice = createSlice({
 
       if (action.payload.taskId) {
         state.tasks.forEach((task) => {
+            // TODO: implement binary search
           if (task.id === action.payload.taskId) {
             task.finishedPomodoro += 1;
           }
