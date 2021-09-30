@@ -24,14 +24,14 @@ export default function Clock() {
     dispatch(stop());
   }
 
-  function clockFinished() {
+  function clockFinished(recordClock: boolean) {
     let endTime = new Date().toString();
 
     notify("pomodoro finished!");
     dispatch(stop());
     dispatch(reset());
 
-    if (theme === "pomodoro") {
+    if (theme === "pomodoro" && recordClock) {
       dispatch(
         newclock({
           startTime,
@@ -41,7 +41,7 @@ export default function Clock() {
         })
       );
     }
-      // TODO: maybe record rest also
+    // TODO: maybe record rest also
   }
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function Clock() {
       if (!clockRunning) return;
 
       if (timenow == 0) {
-        clockFinished();
+        clockFinished(true);
         return;
       }
 
@@ -81,6 +81,16 @@ export default function Clock() {
     }
   }
 
+  function handleSkip() {
+    if (
+      window.confirm(
+        "Are you sure to skip this clock? (This one won't be counted as pomodoro in the report)"
+      )
+    ) {
+      clockFinished(false);
+    }
+  }
+
   return (
     <div className="">
       <ClockOptions />
@@ -93,7 +103,9 @@ export default function Clock() {
       >
         {clockRunning ? "pause" : "start"}
       </button>
-      <button className="bg-white text-black mr-2">jump</button>
+      <button className="bg-white text-black mr-2" onClick={handleSkip}>
+        jump
+      </button>
     </div>
   );
 }
