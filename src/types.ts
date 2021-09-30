@@ -6,9 +6,9 @@ export interface Task {
   // name for the task
   name: string;
   // estimation for number of pomodoro needed
-  estimationPomodoro?: number;
+  estimationPomodoro: number;
   // actual finished pomodoro by far
-  finishedPomodoro?: number;
+  finishedPomodoro: number;
   // notes for the task
   note?: string;
   // linked project id
@@ -24,7 +24,7 @@ export interface Data {
 }
 
 export interface Clock {
-    // use string to represent time, avoid Redux problems
+  // use string to represent time, avoid Redux problems
   startTime: string;
   endTime: string;
   duration: number;
@@ -35,4 +35,10 @@ export interface ClockConfiguration {
   pomodoroDuration: number;
   shortBreakDuration: number;
   longBreakDuration: number;
+}
+
+export interface UpdateTaskType {
+  taskId: number;
+  name: string;
+  estimationPomodoro: number;
 }

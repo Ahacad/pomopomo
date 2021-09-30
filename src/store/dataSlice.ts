@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Clock } from "../types";
+import { Clock, UpdateTaskType } from "../types";
 
 function getTodayString(): string {
   /*
@@ -25,8 +25,8 @@ export const dataSlice = createSlice({
   initialState: {
     days: {},
     tasks: [
-      { id: 1, name: "Task1", finishedPomodoro: 0 },
-      { id: 2, name: "Task2", finishedPomodoro: 0 },
+      { id: 1, name: "Task1", finishedPomodoro: 0, estimationPomodoro: 0 },
+      { id: 2, name: "Task2", finishedPomodoro: 0, estimationPomodoro: 0 },
     ],
     projects: {},
     selectedTask: 0,
@@ -46,7 +46,7 @@ export const dataSlice = createSlice({
 
       if (action.payload.taskId) {
         state.tasks.forEach((task) => {
-            // TODO: implement binary search
+          // TODO: implement binary search
           if (task.id === action.payload.taskId) {
             task.finishedPomodoro += 1;
           }
@@ -62,9 +62,19 @@ export const dataSlice = createSlice({
         state.selectedTask = action.payload;
       }
     },
+    updateTask: (state, action: PayloadAction<UpdateTaskType>) => {
+      if (action.payload.taskId) {
+        state.tasks.forEach((task) => {
+          if (task.id === action.payload.taskId) {
+            task.name = action.payload.name;
+            task.estimationPomodoro = action.payload.estimationPomodoro;
+          }
+        });
+      }
+    },
   },
 });
 
-export const { newclock, selectTask } = dataSlice.actions;
+export const { newclock, selectTask, updateTask } = dataSlice.actions;
 
 export default dataSlice.reducer;

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { newclock } from "./store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { selectTask } from "./store/dataSlice";
+import { selectTask, updateTask } from "./store/dataSlice";
 
 import { RiCheckboxCircleLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { Task as taskType } from "./types";
+import { Task as taskType, UpdateTaskType } from "./types";
 
 function Config({ clickHandler }) {
   function handleClick(e) {
@@ -21,46 +21,143 @@ function Config({ clickHandler }) {
     </button>
   );
 }
-function EditForm() {
-    return <div></div>
+function EditForm({
+  taskData,
+  cancelHandler,
+}: {
+  taskData: taskType;
+  cancelHandler: () => void;
+}) {
+  const dispatch = useDispatch();
+  const [taskName, setTaskName] = useState(taskData.name);
+  const [estimation, setEstimation] = useState(taskData.estimationPomodoro);
+
+  const handleTaskName = (event) => {
+    setTaskName(event.target.value);
+  };
+  const handleEstimation = (event) => {
+    setEstimation(event.target.value);
+  };
+  const handleCancel = (event) => {
+    event.stopPropagation();
+    cancelHandler();
+  };
+  const handleSave = (event) => {
+    dispatch(
+      updateTask({
+        taskId: taskData.id,
+        name: taskName,
+        estimationPomodoro: estimation,
+      })
+    );
+  };
+
+  return (
+    <div className="w-full">
+      <form className="bg-white shadow-md rounded-md px-8 pt-6 pb-8 mb-4">
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="username"
+          >
+            Task Name
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
+            id="username"
+            type="text"
+            value={taskName}
+            onChange={handleTaskName}
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="estimation"
+          >
+            Estimation
+          </label>
+          <input
+            className="shadow appearance-none border border rounded w-3/12 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline text-sm "
+            id="estimation"
+            type="number"
+            value={estimation || 0}
+            onChange={handleEstimation}
+          />
+        </div>
+        <div className="flex items-center justify-between">
+          <div></div>
+          <button
+            className="text-gray-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
+            type="button"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+          <button
+            className="bg-gray-700 hover:bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
+            type="button"
+            onClick={handleSave}
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }
 
-function Task({ data }: { data: taskType }) {
+function Task({ taskData }: { taskData: taskType }) {
   const dispatch = useDispatch();
   const selectedTask = useSelector((state) => state.data.selectedTask);
+  const [showEditForm, setShowEditForm] = useState(false);
+
   function toggleSelect() {
-    if (selectedTask === data.id) {
+    if (selectedTask === taskData.id) {
       dispatch(selectTask(0));
     } else {
-      dispatch(selectTask(data.id));
+      dispatch(selectTask(taskData.id));
     }
   }
   function isSelected(): string {
-    if (selectedTask === data.id) {
+    if (selectedTask === taskData.id) {
       return "border-indigo-400 transform translate-y-0.5";
     }
     return "";
   }
   function clickConfig() {
-      //
+    if (showEditForm) {
+      setShowEditForm(false);
+    } else {
+      setShowEditForm(true);
+    }
+  }
+  function handleCancelEdit() {
+    clickConfig();
   }
 
   return (
-    <button
-      onClick={toggleSelect}
-      className={`bg-white w-full text-black flex justify-between p-4 mb-2 rounded-md border-l-8 hover:border-indigo-400 transform ${isSelected()}`}
-    >
-      <div className="flex">
-        <RiCheckboxCircleLine className="mt-2 mr-1" />
-        {data.name}
-      </div>
-      <div className="flex">
-        {data.finishedPomodoro} /{" "}
-        {data.estimationPomodoro ? data.estimationPomodoro : 0}
-        <Config clickHandler={clickConfig} />
-      </div>
-      <EditForm />
-    </button>
+    <>
+      <button
+        onClick={toggleSelect}
+        className={`bg-white w-full text-black flex justify-between p-4 mb-2 rounded-md border-l-8 hover:border-indigo-400 transform ${isSelected()}`}
+      >
+        <div className="flex">
+          <RiCheckboxCircleLine className="mt-2 mr-1" />
+          {taskData.name}
+        </div>
+        <div className="flex">
+          {taskData.finishedPomodoro} /{" "}
+          {taskData.estimationPomodoro ? taskData.estimationPomodoro : 0}
+          <Config clickHandler={clickConfig} />
+        </div>
+      </button>
+      {showEditForm ? (
+        <EditForm taskData={taskData} cancelHandler={handleCancelEdit} />
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
 
@@ -71,7 +168,7 @@ export default function Tasks() {
     <div className="">
       <div className="w-96 mt-10">
         {tasks.map((task: taskType) => (
-          <Task data={task} />
+          <Task taskData={task} />
         ))}
         <div className="">Add Task</div>
       </div>
