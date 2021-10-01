@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { newclock } from "./store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { selectTask, updateTask, newTask } from "./store/dataSlice";
+import { selectTask, updateTask, newTask, deleteTask } from "./store/dataSlice";
 
 import { RiCheckboxCircleLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -25,9 +25,11 @@ function Config({ clickHandler }) {
 function EditForm({
   taskData,
   cancelHandler,
+  deleteHandler,
 }: {
   taskData: taskType;
   cancelHandler: () => void;
+  deleteHandler: () => void;
 }) {
   const dispatch = useDispatch();
   const [taskName, setTaskName] = useState(taskData.name);
@@ -42,6 +44,9 @@ function EditForm({
   const handleCancel = (event) => {
     event.stopPropagation();
     cancelHandler();
+  };
+  const handleDelete = (event) => {
+    deleteHandler();
   };
   const handleSave = (event) => {
     dispatch(
@@ -87,7 +92,13 @@ function EditForm({
           />
         </div>
         <div className="flex items-center justify-between">
-          <div></div>
+          <button
+            className="text-white bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
+            type="button"
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
           <button
             className="text-gray-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
             type="button"
@@ -136,6 +147,11 @@ function Task({ taskData }: { taskData: taskType }) {
   function handleCancelEdit() {
     clickConfig();
   }
+  function handleDelete() {
+    if (window.confirm("are you sure to delete this task?")) {
+      dispatch(deleteTask(taskData.id));
+    }
+  }
 
   return (
     <>
@@ -154,7 +170,11 @@ function Task({ taskData }: { taskData: taskType }) {
         </div>
       </button>
       {showEditForm ? (
-        <EditForm taskData={taskData} cancelHandler={handleCancelEdit} />
+        <EditForm
+          taskData={taskData}
+          cancelHandler={handleCancelEdit}
+          deleteHandler={handleDelete}
+        />
       ) : (
         <></>
       )}

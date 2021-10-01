@@ -87,9 +87,31 @@ export const dataSlice = createSlice({
         });
       }
     },
+    deleteTask: (state, action: PayloadAction<number>) => {
+      let idx;
+      for (const [index, task] of state.tasks.entries()) {
+        if (index === action.payload) {
+          idx = index;
+          return;
+        }
+      }
+      const originTasks = state.tasks;
+      console.log(originTasks);
+      console.log([
+        ...originTasks.slice(0, idx),
+        ...originTasks.slice(idx + 1),
+      ]);
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+
+      // state.tasks = [
+      //...originTasks.slice(0, idx),
+      //...originTasks.slice(idx + 1),
+      //];
+    },
   },
 });
 
-export const { newclock, newTask, selectTask, updateTask } = dataSlice.actions;
+export const { newclock, newTask, selectTask, updateTask, deleteTask } =
+  dataSlice.actions;
 
 export default dataSlice.reducer;
