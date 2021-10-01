@@ -42,14 +42,14 @@ function App() {
 
   return (
     <div className="App">
-      <header
+      <div
         className="App-header"
         style={{ backgroundColor: getBackgroundColor() }}
       >
         <button onClick={() => notify("muster")}>upd</button>
         <Clock />
         <Tasks />
-      </header>
+      </div>
     </div>
   );
 }
