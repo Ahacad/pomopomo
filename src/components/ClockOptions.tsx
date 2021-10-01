@@ -9,6 +9,8 @@ export default function ClockOptions() {
   const pomodoroDuration = useSelector(
     (state) => state.config.pomodoroDuration
   );
+  const clockRunning = useSelector((state) => state.clock.clockRunning);
+  const currentTheme = useSelector((state) => state.config.theme);
   const shortBreakDuration = useSelector(
     (state) => state.config.shortBreakDuration
   );
@@ -16,17 +18,42 @@ export default function ClockOptions() {
     (state) => state.config.longBreakDuration
   );
 
+  // FIXME: use map rather than if else
+  function getCurrentThemeId() {
+    if (currentTheme === "pomodoro") {
+      return 1;
+    } else if (currentTheme === "shortbreak") {
+      return 2;
+    } else if (currentTheme === "longbreak") {
+      return 3;
+    }
+  }
   function changeTheme(themeId: number) {
-    if (themeId === 1) {
+    if (themeId === getCurrentThemeId()) {
+      return;
+    }
+    if (
+      themeId === 1 &&
+      (!clockRunning || confirm("are you sure to switch?"))
+    ) {
       dispatch(storeChangeTheme("pomodoro"));
       dispatch(setDuration(pomodoroDuration));
-    } else if (themeId === 2) {
+    } else if (
+      themeId === 2 &&
+      (!clockRunning || confirm("are you sure to switch?"))
+    ) {
       dispatch(storeChangeTheme("shortbreak"));
       dispatch(setDuration(shortBreakDuration));
-    } else if (themeId === 3) {
+    } else if (
+      themeId === 3 &&
+      (!clockRunning || confirm("are you sure to switch?"))
+    ) {
       dispatch(storeChangeTheme("longbreak"));
       dispatch(setDuration(longBreakDuration));
-    } else if (themeId === 4) {
+    } else if (
+      themeId === 4 &&
+      (!clockRunning || confirm("are you sure to switch?"))
+    ) {
       dispatch(storeChangeTheme("pomodoro"));
       dispatch(setDuration(5));
     }
