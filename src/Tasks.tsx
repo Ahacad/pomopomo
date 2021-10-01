@@ -5,6 +5,7 @@ import { selectTask, updateTask } from "./store/dataSlice";
 
 import { RiCheckboxCircleLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { HiOutlinePlusCircle } from "react-icons/hi";
 import { Task as taskType, UpdateTaskType } from "./types";
 
 function Config({ clickHandler }) {
@@ -161,6 +162,17 @@ function Task({ taskData }: { taskData: taskType }) {
   );
 }
 
+function AddTask() {
+  return (
+    <div className="h-12 bg-black opacity-10 hover:opacity-20 py-1 rounded-md cursor-pointer">
+      <div className="relative top-1/2 transform -translate-y-1/2 text-base text-white flex justify-center">
+        <div className="flex">
+          <HiOutlinePlusCircle className="mt-1 mr-2" /> Add Task
+        </div>
+      </div>
+    </div>
+  );
+}
 export default function Tasks() {
   const tasks = useSelector((state) => state.data.tasks);
 
@@ -170,7 +182,7 @@ export default function Tasks() {
         {tasks.map((task: taskType) => (
           <Task taskData={task} />
         ))}
-        <div className="">Add Task</div>
+        <AddTask />
       </div>
     </div>
   );
