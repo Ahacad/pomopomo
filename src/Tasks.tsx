@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { newclock } from "./store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { selectTask, updateTask } from "./store/dataSlice";
+import { selectTask, updateTask, newTask } from "./store/dataSlice";
 
 import { RiCheckboxCircleLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -59,13 +59,13 @@ function EditForm({
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="username"
+            htmlFor="task"
           >
             Task Name
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
-            id="username"
+            id="task"
             type="text"
             value={taskName}
             onChange={handleTaskName}
@@ -163,14 +163,106 @@ function Task({ taskData }: { taskData: taskType }) {
 }
 
 function AddTask() {
+  const dispatch = useDispatch();
+  const [showAddTask, setShowAddTask] = useState(true);
+  const [taskName, setTaskName] = useState("");
+  const [estimation, setEstimation] = useState(1);
+  const handleAddTask = (event) => {
+    event.stopPropagation();
+    setShowAddTask(false);
+  };
+  const handleCancel = (event) => {
+    event.stopPropagation();
+    setShowAddTask(true);
+  };
+  const handleTaskName = (event) => {
+    event.stopPropagation();
+    setTaskName(event.target.value);
+  };
+  const handleEstimation = (event) => {
+    setEstimation(event.target.value);
+  };
+  const handleClickAdd = (event) => {
+    if (taskName === "") {
+      alert("task name cannot be empty!");
+      return;
+    }
+    dispatch(
+      newTask({
+        name: taskName,
+        estimationPomodoro: estimation,
+      })
+    );
+    setTaskName("");
+    setEstimation(0);
+  };
   return (
-    <div className="h-12 bg-black opacity-10 hover:opacity-20 py-1 rounded-md cursor-pointer">
-      <div className="relative top-1/2 transform -translate-y-1/2 text-base text-white flex justify-center">
-        <div className="flex">
-          <HiOutlinePlusCircle className="mt-1 mr-2" /> Add Task
+    <>
+      {showAddTask ? (
+        <div
+          className="h-12 bg-black opacity-10 hover:opacity-20 py-1 rounded-md cursor-pointer"
+          onClick={handleAddTask}
+        >
+          <div className="relative top-1/2 transform -translate-y-1/2 text-base text-white flex justify-center">
+            <div className="flex">
+              <HiOutlinePlusCircle className="mt-1 mr-2" /> Add Task
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <div className="w-full">
+          <form className="bg-white shadow-md rounded-md px-8 pt-6 pb-8 mb-4">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="task"
+              >
+                New Task
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
+                id="task"
+                type="text"
+                value={taskName}
+                onChange={handleTaskName}
+              />
+            </div>
+            <div className="mb-6">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="estimation"
+              >
+                Estimation
+              </label>
+              <input
+                className="shadow appearance-none border border rounded w-3/12 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline text-sm "
+                id="estimation"
+                type="number"
+                value={estimation}
+                onChange={handleEstimation}
+              />
+            </div>
+            <div className="flex items-center justify-between">
+              <div></div>
+              <button
+                className="text-gray-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
+                type="button"
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-gray-700 hover:bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
+                onClick={handleClickAdd}
+                type="button"
+              >
+                Add
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+    </>
   );
 }
 export default function Tasks() {

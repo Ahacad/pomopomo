@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Clock, UpdateTaskType } from "../types";
+
+import { AddTaskType, Clock, UpdateTaskType } from "../types";
 
 function getTodayString(): string {
   /*
@@ -28,6 +29,7 @@ export const dataSlice = createSlice({
       { id: 1, name: "Task1", finishedPomodoro: 0, estimationPomodoro: 0 },
       { id: 2, name: "Task2", finishedPomodoro: 0, estimationPomodoro: 0 },
     ],
+
     projects: {},
     selectedTask: 0,
   },
@@ -53,6 +55,19 @@ export const dataSlice = createSlice({
         });
       }
     },
+    newTask: (state, action: PayloadAction<AddTaskType>) => {
+      // TODO: mantain max id as state
+      const taskMaxId =
+        state.tasks.reduce((prev, curr) => {
+          return Math.max(prev, curr.id);
+        }, 0) + 1;
+      state.tasks.push({
+        id: taskMaxId,
+        finishedPomodoro: 0,
+        name: action.payload.name,
+        estimationPomodoro: action.payload.estimationPomodoro,
+      });
+    },
     selectTask: (state, action: PayloadAction<number>) => {
       if (action.payload === 0) {
         state.selectedTask = 0;
@@ -75,6 +90,6 @@ export const dataSlice = createSlice({
   },
 });
 
-export const { newclock, selectTask, updateTask } = dataSlice.actions;
+export const { newclock, newTask, selectTask, updateTask } = dataSlice.actions;
 
 export default dataSlice.reducer;

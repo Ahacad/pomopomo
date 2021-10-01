@@ -37,8 +37,13 @@ export interface ClockConfiguration {
   longBreakDuration: number;
 }
 
+// store
 export interface UpdateTaskType {
   taskId: number;
+  name: string;
+  estimationPomodoro: number;
+}
+export interface AddTaskType {
   name: string;
   estimationPomodoro: number;
 }
