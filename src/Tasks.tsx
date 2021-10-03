@@ -8,9 +8,9 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { Task as taskType, RootState } from "./types";
 
-function Config({ clickHandler }) {
-  function handleClick(e) {
-    e.stopPropagation();
+function Config({ clickHandler }: { clickHandler: () => void }) {
+  function handleClick(event: React.MouseEvent) {
+    event.stopPropagation();
     clickHandler();
   }
   return (
