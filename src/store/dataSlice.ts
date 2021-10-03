@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { AddTaskType, Clock, UpdateTaskType } from "../types";
+import { AddTaskType, Clock, DataState, UpdateTaskType } from "../types";
 
 function getTodayString(): string {
   /*
@@ -40,10 +40,21 @@ export const dataSlice = createSlice({
     newclock: (state, action: PayloadAction<Clock>) => {
       // TODO: save data to local file
       const today: string = getTodayString();
-      if (state.days[today]) {
-        state.days[today].push(action.payload);
+      if (
+        getKeyValue<keyof DataState["days"], DataState["days"]>(today)(
+          state.days
+        )
+      ) {
+        getKeyValue<keyof DataState["days"], DataState["days"]>(today)(
+          state.days
+        ).push(action.payload);
       } else {
-        state.days[today] = [action.payload];
+        // state.days[today] = [action.payload];
+        Object.defineProperty(state.days, today, {
+          value: [action.payload],
+          enumerable: true,
+          writable: true,
+        });
       }
 
       if (action.payload.taskId) {
@@ -88,14 +99,14 @@ export const dataSlice = createSlice({
       }
     },
     deleteTask: (state, action: PayloadAction<number>) => {
-      let idx;
+      const originTasks = state.tasks;
+      let idx = originTasks.length;
       for (const [index, task] of state.tasks.entries()) {
         if (index === action.payload) {
           idx = index;
           return;
         }
       }
-      const originTasks = state.tasks;
       console.log(originTasks);
       console.log([
         ...originTasks.slice(0, idx),
