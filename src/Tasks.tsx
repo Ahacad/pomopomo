@@ -35,20 +35,20 @@ function EditForm({
   const [taskName, setTaskName] = useState(taskData.name);
   const [estimation, setEstimation] = useState(taskData.estimationPomodoro);
 
-  const handleTaskName = (event) => {
-    setTaskName(event.target.value);
+  const handleTaskName = (event: React.ChangeEvent) => {
+    setTaskName((event.target as HTMLInputElement).value);
   };
-  const handleEstimation = (event) => {
-    setEstimation(event.target.value);
+  const handleEstimation = (event: React.ChangeEvent) => {
+    setTaskName((event.target as HTMLInputElement).value);
   };
-  const handleCancel = (event) => {
+  const handleCancel = (event: React.MouseEvent) => {
     event.stopPropagation();
     cancelHandler();
   };
-  const handleDelete = (event) => {
+  const handleDelete = (event: React.MouseEvent) => {
     deleteHandler();
   };
-  const handleSave = (event) => {
+  const handleSave = (event: React.MouseEvent) => {
     dispatch(
       updateTask({
         taskId: taskData.id,
@@ -189,22 +189,22 @@ function AddTask() {
   const [showAddTask, setShowAddTask] = useState(true);
   const [taskName, setTaskName] = useState("");
   const [estimation, setEstimation] = useState(1);
-  const handleAddTask = (event) => {
+  const handleAddTask = (event: React.MouseEvent) => {
     event.stopPropagation();
     setShowAddTask(false);
   };
-  const handleCancel = (event) => {
+  const handleCancel = (event: React.MouseEvent) => {
     event.stopPropagation();
     setShowAddTask(true);
   };
-  const handleTaskName = (event) => {
+  const handleTaskName = (event: React.ChangeEvent) => {
     event.stopPropagation();
-    setTaskName(event.target.value);
+    setTaskName((event.target as HTMLInputElement).value);
   };
-  const handleEstimation = (event) => {
-    setEstimation(event.target.value);
+  const handleEstimation = (event: React.ChangeEvent) => {
+    setTaskName((event.target as HTMLInputElement).value);
   };
-  const handleClickAdd = (event) => {
+  const handleClickAdd = (event: React.MouseEvent) => {
     if (taskName === "") {
       alert("task name cannot be empty!");
       return;
