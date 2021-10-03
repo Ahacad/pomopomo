@@ -39,7 +39,7 @@ function EditForm({
     setTaskName((event.target as HTMLInputElement).value);
   };
   const handleEstimation = (event: React.ChangeEvent) => {
-    setTaskName((event.target as HTMLInputElement).value);
+    setEstimation(Number((event.target as HTMLInputElement).value));
   };
   const handleCancel = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -202,7 +202,7 @@ function AddTask() {
     setTaskName((event.target as HTMLInputElement).value);
   };
   const handleEstimation = (event: React.ChangeEvent) => {
-    setTaskName((event.target as HTMLInputElement).value);
+    setEstimation(Number((event.target as HTMLInputElement).value));
   };
   const handleClickAdd = (event: React.MouseEvent) => {
     if (taskName === "") {
