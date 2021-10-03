@@ -1,3 +1,34 @@
+export interface Clock {
+  // use string to represent time, avoid Redux problems
+  startTime: string;
+  endTime: string;
+  duration: number;
+  taskId?: number;
+}
+
+// store
+export interface UpdateTaskType {
+  taskId: number;
+  name: string;
+  estimationPomodoro: number;
+}
+export interface AddTaskType {
+  name: string;
+  estimationPomodoro: number;
+}
+
+// states
+export interface ConfigState {
+  pomodoroDuration: number;
+  shortBreakDuration: number;
+  longBreakDuration: number;
+  theme: string;
+}
+export interface ClockState {
+  duration: number;
+  timenow: number;
+  clockRunning: boolean;
+}
 export interface Day {
   [key: string]: Clock[];
 }
@@ -17,33 +48,13 @@ export interface Task {
 export interface Project {
   id: number;
 }
-export interface Data {
+export interface DataState {
   days: Day;
   tasks: Task[];
   projects: Project[];
 }
-
-export interface Clock {
-  // use string to represent time, avoid Redux problems
-  startTime: string;
-  endTime: string;
-  duration: number;
-  taskId?: number;
-}
-
-export interface ClockConfiguration {
-  pomodoroDuration: number;
-  shortBreakDuration: number;
-  longBreakDuration: number;
-}
-
-// store
-export interface UpdateTaskType {
-  taskId: number;
-  name: string;
-  estimationPomodoro: number;
-}
-export interface AddTaskType {
-  name: string;
-  estimationPomodoro: number;
+export interface RootState {
+  config: ConfigState;
+  clock: ClockState;
+  data: DataState;
 }
