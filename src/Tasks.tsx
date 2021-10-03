@@ -6,11 +6,11 @@ import { selectTask, updateTask, newTask, deleteTask } from "./store/dataSlice";
 import { RiCheckboxCircleLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { HiOutlinePlusCircle } from "react-icons/hi";
-import { Task as taskType, UpdateTaskType } from "./types";
+import { Task as taskType, RootState } from "./types";
 
-function Config({ clickHandler }) {
-  function handleClick(e) {
-    e.stopPropagation();
+function Config({ clickHandler }: { clickHandler: () => void }) {
+  function handleClick(event: React.MouseEvent) {
+    event.stopPropagation();
     clickHandler();
   }
   return (
@@ -35,20 +35,20 @@ function EditForm({
   const [taskName, setTaskName] = useState(taskData.name);
   const [estimation, setEstimation] = useState(taskData.estimationPomodoro);
 
-  const handleTaskName = (event) => {
-    setTaskName(event.target.value);
+  const handleTaskName = (event: React.ChangeEvent) => {
+    setTaskName((event.target as HTMLInputElement).value);
   };
-  const handleEstimation = (event) => {
-    setEstimation(event.target.value);
+  const handleEstimation = (event: React.ChangeEvent) => {
+    setTaskName((event.target as HTMLInputElement).value);
   };
-  const handleCancel = (event) => {
+  const handleCancel = (event: React.MouseEvent) => {
     event.stopPropagation();
     cancelHandler();
   };
-  const handleDelete = (event) => {
+  const handleDelete = (event: React.MouseEvent) => {
     deleteHandler();
   };
-  const handleSave = (event) => {
+  const handleSave = (event: React.MouseEvent) => {
     dispatch(
       updateTask({
         taskId: taskData.id,
@@ -121,7 +121,9 @@ function EditForm({
 
 function Task({ taskData }: { taskData: taskType }) {
   const dispatch = useDispatch();
-  const selectedTask = useSelector((state) => state.data.selectedTask);
+  const selectedTask = useSelector(
+    (state: RootState) => state.data.selectedTask
+  );
   const [showEditForm, setShowEditForm] = useState(false);
 
   function toggleSelect() {
@@ -187,22 +189,22 @@ function AddTask() {
   const [showAddTask, setShowAddTask] = useState(true);
   const [taskName, setTaskName] = useState("");
   const [estimation, setEstimation] = useState(1);
-  const handleAddTask = (event) => {
+  const handleAddTask = (event: React.MouseEvent) => {
     event.stopPropagation();
     setShowAddTask(false);
   };
-  const handleCancel = (event) => {
+  const handleCancel = (event: React.MouseEvent) => {
     event.stopPropagation();
     setShowAddTask(true);
   };
-  const handleTaskName = (event) => {
+  const handleTaskName = (event: React.ChangeEvent) => {
     event.stopPropagation();
-    setTaskName(event.target.value);
+    setTaskName((event.target as HTMLInputElement).value);
   };
-  const handleEstimation = (event) => {
-    setEstimation(event.target.value);
+  const handleEstimation = (event: React.ChangeEvent) => {
+    setTaskName((event.target as HTMLInputElement).value);
   };
-  const handleClickAdd = (event) => {
+  const handleClickAdd = (event: React.MouseEvent) => {
     if (taskName === "") {
       alert("task name cannot be empty!");
       return;
@@ -286,7 +288,7 @@ function AddTask() {
   );
 }
 export default function Tasks() {
-  const tasks = useSelector((state) => state.data.tasks);
+  const tasks = useSelector((state: RootState) => state.data.tasks);
 
   return (
     <div className="">

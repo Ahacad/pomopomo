@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ClockConfiguration } from "../types";
 
 export const configSlice = createSlice({
   name: "config",
