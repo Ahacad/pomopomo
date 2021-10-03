@@ -7,6 +7,7 @@ import ClockOptions from "./components/ClockOptions";
 import { RootState } from "./types";
 
 export default function Clock() {
+  Notification.requestPermission();
   const dispatch = useDispatch();
   const timenow = useSelector((state: RootState) => state.clock.timenow);
   const duration = useSelector((state: RootState) => state.clock.duration);
@@ -28,10 +29,10 @@ export default function Clock() {
     dispatch(stop());
   }
 
-  function clockFinished(recordClock: boolean) {
+  async function clockFinished(recordClock: boolean) {
     let endTime = new Date().toString();
 
-    notify("pomodoro finished!");
+    await notify("pomodoro finished!");
     dispatch(stop());
     dispatch(reset());
 

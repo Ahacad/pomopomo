@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Clock from "./Clock";
 import Tasks from "./Tasks";
+import BarChart from "./BarChart";
 import { RootState } from "./types";
 import { useSelector } from "react-redux";
 import { writeJson } from "./util/files";
@@ -43,6 +44,7 @@ function App() {
         <Clock />
         <Tasks />
       </div>
+      <BarChart />
     </div>
   );
 }

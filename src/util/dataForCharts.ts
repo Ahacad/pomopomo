@@ -19,5 +19,11 @@ export function getDaysData() {
   daysdata.forEach((value, key) => {
     res.push({ x: key, y: value });
   });
+
+  // TODO: handle problems:
+  // 1. data less then some amount (say 15 days)
+  // 2. data loss in between recorded days (say 2021-09-01 and 2021-09-20)
+  // i.e. needs data padding
+
   return res;
 }
