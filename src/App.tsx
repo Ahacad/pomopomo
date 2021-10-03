@@ -10,6 +10,10 @@ function App() {
   const theme = useSelector((state: RootState) => state.config.theme);
   const wholeState = useSelector((state) => state);
 
+  if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+  }
+
   function getBackgroundColor() {
     if (theme === "pomodoro") {
       return "#db524d";
