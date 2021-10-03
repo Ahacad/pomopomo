@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./App.css";
 import Clock from "./Clock";
 import Tasks from "./Tasks";
-import { notify } from "./util";
 import { RootState } from "./types";
 import { useSelector } from "react-redux";
 import { writeJson } from "./util/files";
@@ -41,7 +40,6 @@ function App() {
             Download Data
           </button>
         </div>
-        <button onClick={() => notify("muster")}>upd</button>
         <Clock />
         <Tasks />
       </div>
