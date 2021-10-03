@@ -102,12 +102,15 @@ export default function Clock() {
         {getTimeMinute(timenow)} : {getTimeSecond(timenow)}
       </div>
       <button
-        className="bg-white text-black mr-2"
+        className="bg-white text-black mr-2 p-2 rounded-lg"
         onClick={clockRunning ? clockPause : clockStart}
       >
         {clockRunning ? "pause" : "start"}
       </button>
-      <button className="bg-white text-black mr-2" onClick={handleSkip}>
+      <button
+        className="bg-white text-black mr-2 p-2 rounded-lg"
+        onClick={handleSkip}
+      >
         jump
       </button>
     </div>

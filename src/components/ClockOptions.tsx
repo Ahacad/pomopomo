@@ -63,16 +63,28 @@ export default function ClockOptions() {
   }
   return (
     <div>
-      <button className="bg-white text-black" onClick={() => changeTheme(1)}>
+      <button
+        className="bg-white mr-1 text-black rounded-lg p-2"
+        onClick={() => changeTheme(1)}
+      >
         Pomodoro
       </button>
-      <button className="bg-white text-black" onClick={() => changeTheme(2)}>
+      <button
+        className="bg-white mr-1 text-black rounded-lg p-2"
+        onClick={() => changeTheme(2)}
+      >
         Short Break
       </button>
-      <button className="bg-white text-black" onClick={() => changeTheme(3)}>
+      <button
+        className="bg-white mr-1 text-black rounded-lg p-2"
+        onClick={() => changeTheme(3)}
+      >
         Long Break
       </button>
-      <button className="bg-white text-black" onClick={() => changeTheme(4)}>
+      <button
+        className="bg-white text-black rounded-lg p-2"
+        onClick={() => changeTheme(4)}
+      >
         TEST
       </button>
     </div>
