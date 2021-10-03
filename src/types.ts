@@ -52,6 +52,7 @@ export interface DataState {
   days: Day;
   tasks: Task[];
   projects: Project[];
+  selectedTask: number;
 }
 export interface RootState {
   config: ConfigState;

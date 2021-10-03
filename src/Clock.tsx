@@ -4,15 +4,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { stop, start, reset, decrease } from "./store/clockSlice";
 import { notify } from "./util";
 import ClockOptions from "./components/ClockOptions";
-import { Clock as typeClock } from "./types";
+import { RootState } from "./types";
 
 export default function Clock() {
   const dispatch = useDispatch();
-  const timenow = useSelector((state) => state.clock.timenow);
-  const duration = useSelector((state) => state.clock.duration);
-  const clockRunning = useSelector((state) => state.clock.clockRunning);
-  const selectedTask = useSelector((state) => state.data.selectedTask);
-  const theme = useSelector((state) => state.config.theme);
+  const timenow = useSelector((state: RootState) => state.clock.timenow);
+  const duration = useSelector((state: RootState) => state.clock.duration);
+  const clockRunning = useSelector(
+    (state: RootState) => state.clock.clockRunning
+  );
+  const selectedTask = useSelector(
+    (state: RootState) => state.data.selectedTask
+  );
+  const theme = useSelector((state: RootState) => state.config.theme);
 
   const [startTime, setStartTime] = useState("");
 

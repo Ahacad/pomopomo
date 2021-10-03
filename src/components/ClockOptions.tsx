@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import { changeTheme as storeChangeTheme } from "../store/configSlice";
 import { setDuration } from "../store/clockSlice";
+import { RootState } from "../types";
 
 import { useDispatch, useSelector } from "react-redux";
 
 export default function ClockOptions() {
   const dispatch = useDispatch();
   const pomodoroDuration = useSelector(
-    (state) => state.config.pomodoroDuration
+    (state: RootState) => state.config.pomodoroDuration
   );
-  const clockRunning = useSelector((state) => state.clock.clockRunning);
-  const currentTheme = useSelector((state) => state.config.theme);
+  const clockRunning = useSelector(
+    (state: RootState) => state.clock.clockRunning
+  );
+  const currentTheme = useSelector((state: RootState) => state.config.theme);
   const shortBreakDuration = useSelector(
-    (state) => state.config.shortBreakDuration
+    (state: RootState) => state.config.shortBreakDuration
   );
   const longBreakDuration = useSelector(
-    (state) => state.config.longBreakDuration
+    (state: RootState) => state.config.longBreakDuration
   );
 
   // FIXME: use map rather than if else

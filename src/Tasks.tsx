@@ -6,7 +6,7 @@ import { selectTask, updateTask, newTask, deleteTask } from "./store/dataSlice";
 import { RiCheckboxCircleLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { HiOutlinePlusCircle } from "react-icons/hi";
-import { Task as taskType, UpdateTaskType } from "./types";
+import { Task as taskType, RootState } from "./types";
 
 function Config({ clickHandler }) {
   function handleClick(e) {
@@ -121,7 +121,9 @@ function EditForm({
 
 function Task({ taskData }: { taskData: taskType }) {
   const dispatch = useDispatch();
-  const selectedTask = useSelector((state) => state.data.selectedTask);
+  const selectedTask = useSelector(
+    (state: RootState) => state.data.selectedTask
+  );
   const [showEditForm, setShowEditForm] = useState(false);
 
   function toggleSelect() {
@@ -286,7 +288,7 @@ function AddTask() {
   );
 }
 export default function Tasks() {
-  const tasks = useSelector((state) => state.data.tasks);
+  const tasks = useSelector((state: RootState) => state.data.tasks);
 
   return (
     <div className="">

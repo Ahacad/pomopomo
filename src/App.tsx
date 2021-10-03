@@ -3,15 +3,21 @@ import "./App.css";
 import Clock from "./Clock";
 import Tasks from "./Tasks";
 import { notify } from "./util";
-import { newclock } from "./store/dataSlice";
+import { RootState } from "./types";
 import { useSelector, useDispatch } from "react-redux";
+
+declare global {
+  interface Window {
+    showOpenFilePicker: any;
+  }
+}
 
 function App() {
   const [count, setCount] = useState(0);
   const [text, setText] = useState("");
 
   const dispatch = useDispatch();
-  const theme = useSelector((state) => state.config.theme);
+  const theme = useSelector((state: RootState) => state.config.theme);
 
   const handleClick = async () => {
     let fileHandle;
