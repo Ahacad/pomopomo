@@ -1,12 +1,9 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../types";
-
-interface DailyData {
-  x: string;
-  y: number;
-}
+import { DailyData } from "../types";
 
 export function getDaysData() {
+  // get days data for vivo, example format: [{ x: "2021-10-10", y: 10 }]
   const days = useSelector((state: RootState) => state.data.days);
 
   const daysdata = new Map();

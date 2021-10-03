@@ -5,6 +5,10 @@ export interface Clock {
   duration: number;
   taskId?: number;
 }
+export interface DailyData {
+  x: string;
+  y: number;
+}
 
 // store
 export interface UpdateTaskType {
