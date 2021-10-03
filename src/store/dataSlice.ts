@@ -49,12 +49,11 @@ export const dataSlice = createSlice({
           state.days
         ).push(action.payload);
       } else {
-        // state.days[today] = [action.payload];
-        Object.defineProperty(state.days, today, {
-          value: [action.payload],
-          enumerable: true,
-          writable: true,
-        });
+        // FIXME: element implicitly has an any type because expression
+        // of type 'string' can't be used to index type
+        // WritableDraft<{}>
+        // @ts-ignore
+        state.days[today] = [action.payload];
       }
 
       if (action.payload.taskId) {
