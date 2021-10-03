@@ -4,35 +4,12 @@ import Clock from "./Clock";
 import Tasks from "./Tasks";
 import { notify } from "./util";
 import { RootState } from "./types";
-import { useSelector, useDispatch } from "react-redux";
-
-declare global {
-  interface Window {
-    showOpenFilePicker: any;
-  }
-}
+import { useSelector } from "react-redux";
+import { writeJson } from "./util/files";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [text, setText] = useState("");
-
-  const dispatch = useDispatch();
   const theme = useSelector((state: RootState) => state.config.theme);
-
-  const handleClick = async () => {
-    let fileHandle;
-    [fileHandle] = await window.showOpenFilePicker();
-    const file = await fileHandle.getFile();
-    const data = await file.text();
-    try {
-      let j = JSON.parse(data);
-      setText(j.a);
-    } catch (e) {
-      window.alert(
-        "invalid json data file! Please find the correct data file."
-      );
-    }
-  };
+  const wholeState = useSelector((state) => state);
 
   function getBackgroundColor() {
     if (theme === "pomodoro") {
@@ -45,6 +22,9 @@ function App() {
       return "#db524d";
     }
   }
+  const handleDownloadData = async () => {
+    await writeJson(JSON.stringify(wholeState));
+  };
 
   return (
     <div className="App">
@@ -52,6 +32,15 @@ function App() {
         className="App-header"
         style={{ backgroundColor: getBackgroundColor() }}
       >
+        <div className="flex justify-between w-full">
+          <div />
+          <button
+            className="bg-white text-sm text-black mr-2 rounded p-1"
+            onClick={handleDownloadData}
+          >
+            Download Data
+          </button>
+        </div>
         <button onClick={() => notify("muster")}>upd</button>
         <Clock />
         <Tasks />
