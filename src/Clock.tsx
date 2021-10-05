@@ -10,6 +10,7 @@ export default function Clock() {
   const dispatch = useDispatch();
   const timenow = useSelector((state: RootState) => state.clock.timenow);
   const duration = useSelector((state: RootState) => state.clock.duration);
+
   const clockRunning = useSelector(
     (state: RootState) => state.clock.clockRunning
   );
@@ -52,23 +53,31 @@ export default function Clock() {
     const timer = setInterval(() => {
       if (!clockRunning) return;
 
-      if (timenow == 0) {
+      if (timenow <= 0) {
         clockFinished(true);
         return;
       }
+      const now = new Date();
 
       // pomodoro starting
-      if (timenow == duration) {
-        setStartTime(new Date().toString());
+      if (timenow === duration) {
+        setStartTime(now.toString());
+        dispatch(decrease(0.01));
+        return;
       }
-      dispatch(decrease());
+
+      let finished = Math.floor(
+        (now.getTime() - new Date(startTime).getTime()) / 1000
+      );
+      dispatch(decrease(finished));
     }, 1000);
     return () => {
-      clearTimeout(timer);
+      clearInterval(timer);
     };
   });
 
   function getTimeMinute(timenow: number) {
+    timenow = Math.ceil(timenow);
     const oristr = String(Math.floor(timenow / 60));
     if (oristr.length == 1) {
       return "0" + oristr;
@@ -77,6 +86,7 @@ export default function Clock() {
     }
   }
   function getTimeSecond(timenow: number) {
+    timenow = Math.ceil(timenow);
     const oristr = String(timenow - 60 * Math.floor(timenow / 60));
     if (oristr.length == 1) {
       return "0" + oristr;

@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction } from "react-redux";
 import { Clock } from "../types";
 
 export const clockSlice = createSlice({
   name: "clock",
+  // FIXME: change default duration to pomodoro 25 minutes
   initialState: { duration: 5, timenow: 5, clockRunning: false },
   reducers: {
     stop: (state) => {
@@ -11,8 +13,8 @@ export const clockSlice = createSlice({
     start: (state) => {
       state.clockRunning = true;
     },
-    decrease: (state) => {
-      state.timenow -= 1;
+    decrease: (state, action: PayloadAction<number>) => {
+      state.timenow = state.duration - action.payload;
     },
     reset: (state) => {
       state.timenow = state.duration;
