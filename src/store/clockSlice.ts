@@ -1,5 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { PayloadAction } from "react-redux";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Clock } from "../types";
 
 export const clockSlice = createSlice({
