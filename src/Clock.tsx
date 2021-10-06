@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { newclock } from "./store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { stop, start, reset, decrease } from "./store/clockSlice";
+import { stop, start, reset, decrease, setTimenow } from "./store/clockSlice";
 import { notify } from "./util";
 import ClockOptions from "./components/ClockOptions";
 import { RootState } from "./types";
@@ -19,9 +19,14 @@ export default function Clock() {
   );
   const theme = useSelector((state: RootState) => state.config.theme);
 
+  const [pauseStartTime, setPauseStartTime] = useState("");
   const [startTime, setStartTime] = useState("");
 
   function clockStart() {
+    if (timenow === duration) {
+      setStartTime(new Date().toString());
+    }
+    setPauseStartTime(new Date().toString());
     dispatch(start());
   }
 
@@ -33,8 +38,8 @@ export default function Clock() {
     let endTime = new Date().toString();
 
     notify("pomodoro finished!");
-    dispatch(stop());
     dispatch(reset());
+    clockPause();
 
     if (theme === "pomodoro" && recordClock) {
       dispatch(
@@ -59,15 +64,8 @@ export default function Clock() {
       }
       const now = new Date();
 
-      // pomodoro starting
-      if (timenow === duration) {
-        setStartTime(now.toString());
-        dispatch(decrease(0.01));
-        return;
-      }
-
       let finished = Math.floor(
-        (now.getTime() - new Date(startTime).getTime()) / 1000
+        (now.getTime() - new Date(pauseStartTime).getTime()) / 1000
       );
       dispatch(decrease(finished));
     }, 1000);
