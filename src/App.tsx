@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Clock from "./Clock";
 import Tasks from "./Tasks";
+// @ts-ignore
 import BarChart from "./BarChart";
 import { RootState } from "./types";
 import { useSelector } from "react-redux";

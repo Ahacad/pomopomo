@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+// @ts-nocheck
+import React from "react";
 import { getDaysData } from "./util/dataForCharts";
-import { DailyData } from "./types";
 import { Line } from "@nivo/line";
 
 const commonProperties = {
@@ -12,7 +12,7 @@ const commonProperties = {
 };
 
 export default function BarChart() {
-  const data: DailyData[] = getDaysData();
+  const data = getDaysData();
   return (
     <Line
       {...commonProperties}
