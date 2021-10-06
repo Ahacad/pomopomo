@@ -1,20 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AddTaskType, Clock, DataState, UpdateTaskType } from "../types";
+import { getTodayString } from '../util/dateTime'
 
-function getTodayString(): string {
-  /*
-   * return uid for today, format is like "2021-09-21"
-   */
-  const date = new Date();
-  const [day, month, year] = [
-    date.getDate(),
-    date.getMonth(),
-    date.getFullYear(),
-  ];
-
-  return String(year) + "-" + String(month) + "-" + String(day);
-}
 
 const getKeyValue =
   <U extends keyof T, T extends object>(key: U) =>

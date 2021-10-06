@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./App.css";
 import Clock from "./Clock";
 import Tasks from "./Tasks";
+// @ts-ignore
+import BarChart from "./BarChart";
 import { RootState } from "./types";
 import { useSelector } from "react-redux";
 import { writeJson } from "./util/files";
@@ -46,6 +48,9 @@ function App() {
         </div>
         <Clock />
         <Tasks />
+      </div>
+      <div className="flex justify-center w-full">
+        <BarChart />
       </div>
     </div>
   );
