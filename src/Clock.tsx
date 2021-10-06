@@ -103,6 +103,10 @@ export default function Clock() {
     }
   }
 
+  document.title = `pomopomo ${getTimeMinute(timenow)} : ${getTimeSecond(
+    timenow
+  )}`;
+
   return (
     <div className="">
       <ClockOptions />
