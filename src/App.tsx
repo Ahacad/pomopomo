@@ -48,7 +48,9 @@ function App() {
         <Clock />
         <Tasks />
       </div>
-      <BarChart />
+      <div className="flex justify-center w-full">
+        <BarChart />
+      </div>
     </div>
   );
 }
