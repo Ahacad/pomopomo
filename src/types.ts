@@ -55,7 +55,7 @@ export interface Project {
 export interface DataState {
   days: Day;
   tasks: Task[];
-  projects: Project[];
+  // projects: Project[];
   selectedTask: number;
 }
 export interface RootState {

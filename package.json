@@ -1,6 +1,6 @@
 {
   "name": "pomopomo",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build --base=/pomopomo/",
