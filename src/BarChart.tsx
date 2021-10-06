@@ -13,7 +13,6 @@ const commonProperties = {
 
 export default function BarChart() {
   const data: DailyData[] = getDaysData();
-  console.log(data);
   return (
     <Line
       {...commonProperties}
@@ -34,15 +33,18 @@ export default function BarChart() {
         type: "linear",
         stacked: true,
         min: 0,
+        max: "auto",
       }}
       axisLeft={{
-        legend: "",
-        legendOffset: 12,
+        legend: "pomo",
+        legendOffset: -40,
+        legendPosition: "middle",
       }}
       axisBottom={{
         format: "%b %d",
         tickValues: "every 1 day",
-        legend: "",
+        tickRotation: 30,
+        legend: "day",
         legendOffset: -12,
       }}
       enablePointLabel={true}
