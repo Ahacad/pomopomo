@@ -21,18 +21,18 @@ const getKeyValue =
   (obj: T) =>
     obj[key];
 
+const initialState: DataState = {
+  days: {},
+  tasks: [
+    { id: 1, name: "Task1", finishedPomodoro: 0, estimationPomodoro: 0 },
+    { id: 2, name: "Task2", finishedPomodoro: 0, estimationPomodoro: 0 },
+  ],
+  selectedTask: 0,
+};
+
 export const dataSlice = createSlice({
   name: "data",
-  initialState: {
-    days: {},
-    tasks: [
-      { id: 1, name: "Task1", finishedPomodoro: 0, estimationPomodoro: 0 },
-      { id: 2, name: "Task2", finishedPomodoro: 0, estimationPomodoro: 0 },
-    ],
-
-    projects: {},
-    selectedTask: 0,
-  },
+  initialState: initialState,
   reducers: {
     increment: (state, action) => {
       //
@@ -52,6 +52,7 @@ export const dataSlice = createSlice({
         // FIXME: element implicitly has an any type because expression
         // of type 'string' can't be used to index type
         // WritableDraft<{}>
+
         // @ts-ignore
         state.days[today] = [action.payload];
       }
