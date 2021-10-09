@@ -39,7 +39,7 @@ function EditForm({
     setTaskName(event.target.value);
   };
   const handleEstimation = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEstimation(Number(event.target.value));
+    setEstimation(parseInt(event.target.value, 10));
   };
   const handleCancel = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -81,7 +81,7 @@ function EditForm({
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="estimation"
           >
-            Estimation
+            Estimate Round
           </label>
           <input
             className="shadow appearance-none border border rounded w-3/12 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline text-sm "
@@ -202,7 +202,7 @@ function AddTask() {
     setTaskName(event.target.value);
   };
   const handleEstimation = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEstimation(Number(event.target.value));
+    setEstimation(parseInt(event.target.value, 10));
   };
   const handleClickAdd = (event: React.MouseEvent) => {
     if (taskName === "") {
@@ -254,7 +254,7 @@ function AddTask() {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="estimation"
               >
-                Estimation
+                Estimate Round
               </label>
               <input
                 className="shadow appearance-none border border rounded w-3/12 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline text-sm "
@@ -294,7 +294,7 @@ export default function Tasks() {
     <div className="">
       <div className="w-96 mt-10">
         {tasks.map((task: taskType) => (
-          <Task taskData={task} />
+          <Task key={task.id} taskData={task} />
         ))}
         <AddTask />
       </div>
