@@ -35,11 +35,11 @@ function EditForm({
   const [taskName, setTaskName] = useState(taskData.name);
   const [estimation, setEstimation] = useState(taskData.estimationPomodoro);
 
-  const handleTaskName = (event: React.ChangeEvent) => {
-    setTaskName((event.target as HTMLInputElement).value);
+  const handleTaskName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTaskName(event.target.value);
   };
-  const handleEstimation = (event: React.ChangeEvent) => {
-    setEstimation(Number((event.target as HTMLInputElement).value));
+  const handleEstimation = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEstimation(Number(event.target.value));
   };
   const handleCancel = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -197,12 +197,12 @@ function AddTask() {
     event.stopPropagation();
     setShowAddTask(true);
   };
-  const handleTaskName = (event: React.ChangeEvent) => {
+  const handleTaskName = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.stopPropagation();
-    setTaskName((event.target as HTMLInputElement).value);
+    setTaskName(event.target.value);
   };
-  const handleEstimation = (event: React.ChangeEvent) => {
-    setEstimation(Number((event.target as HTMLInputElement).value));
+  const handleEstimation = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEstimation(Number(event.target.value));
   };
   const handleClickAdd = (event: React.MouseEvent) => {
     if (taskName === "") {
