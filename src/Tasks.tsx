@@ -87,7 +87,7 @@ function EditForm({
             className="shadow appearance-none border border rounded w-3/12 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline text-sm "
             id="estimation"
             type="number"
-            value={estimation || 1}
+            value={estimation || ""}
             onChange={handleEstimation}
           />
         </div>
@@ -260,7 +260,7 @@ function AddTask() {
                 className="shadow appearance-none border border rounded w-3/12 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline text-sm "
                 id="estimation"
                 type="number"
-                value={estimation}
+                value={estimation || ""}
                 onChange={handleEstimation}
               />
             </div>
