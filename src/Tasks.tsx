@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { newclock } from "./store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { selectTask, updateTask, newTask, deleteTask } from "./store/dataSlice";
+import {
+  finishTask,
+  selectTask,
+  updateTask,
+  newTask,
+  deleteTask,
+} from "./store/dataSlice";
 
 import { RiCheckboxCircleLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -154,6 +160,10 @@ function Task({ taskData }: { taskData: taskType }) {
       dispatch(deleteTask(taskData.id));
     }
   }
+  function handleFinishTask(event: React.MouseEvent) {
+    event.stopPropagation();
+    dispatch(finishTask(taskData.id));
+  }
 
   return (
     <>
@@ -162,7 +172,10 @@ function Task({ taskData }: { taskData: taskType }) {
         className={`bg-white w-full text-black flex justify-between p-4 mb-2 rounded-md border-l-8 hover:border-indigo-400 transform ${isSelected()}`}
       >
         <div className="flex">
-          <RiCheckboxCircleLine className="mt-2 mr-1" />
+          <RiCheckboxCircleLine
+            className="mt-2 mr-1"
+            onClick={handleFinishTask}
+          />
           {taskData.name}
         </div>
         <div className="flex">

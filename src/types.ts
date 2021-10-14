@@ -48,6 +48,8 @@ export interface Task {
   note?: string;
   // linked project id
   projectId?: number;
+    /* adapting  */
+  finished?: boolean;
 }
 export interface Project {
   id: number;
@@ -55,6 +57,7 @@ export interface Project {
 export interface DataState {
   days: Day;
   tasks: Task[];
+  finishedTasks: Task[];
   // projects: Project[];
   selectedTask: number;
 }

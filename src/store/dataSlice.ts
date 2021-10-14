@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { AddTaskType, Clock, DataState, UpdateTaskType } from "../types";
-import { getTodayString } from '../util/dateTime'
-
+import { AddTaskType, Clock, DataState, Task, UpdateTaskType } from "../types";
+import { getTodayString } from "../util/dateTime";
 
 const getKeyValue =
   <U extends keyof T, T extends object>(key: U) =>
@@ -15,6 +14,7 @@ const initialState: DataState = {
     { id: 1, name: "Task1", finishedPomodoro: 0, estimationPomodoro: 0 },
     { id: 2, name: "Task2", finishedPomodoro: 0, estimationPomodoro: 0 },
   ],
+  finishedTasks: [],
   selectedTask: 0,
 };
 
@@ -22,9 +22,6 @@ export const dataSlice = createSlice({
   name: "data",
   initialState: initialState,
   reducers: {
-    increment: (state, action) => {
-      //
-    },
     newclock: (state, action: PayloadAction<Clock>) => {
       // TODO: save data to local file
       const today: string = getTodayString();
@@ -67,6 +64,28 @@ export const dataSlice = createSlice({
         estimationPomodoro: action.payload.estimationPomodoro,
       });
     },
+    finishTask: (state, action: PayloadAction<number>) => {
+      let finishedTask: Task[] = [];
+      for (let i = 0; i < state.tasks.length; i++) {
+        if (state.tasks[i].id === action.payload) {
+          finishedTask = state.tasks.splice(i, 1);
+          break;
+        }
+      }
+      finishedTask[0].finished = true;
+      state.finishedTasks.push(finishedTask[0]);
+    },
+    unfinishTask: (state, action: PayloadAction<number>) => {
+      let unfinishedTask: Task[] = [];
+      for (let i = 0; i < state.finishedTasks.length; i++) {
+        if (state.finishedTasks[i].id === action.payload) {
+          unfinishedTask = state.finishedTasks.splice(i, 1);
+          break;
+        }
+      }
+      unfinishedTask[0].finished = false;
+      state.finishedTasks.push(unfinishedTask[0]);
+    },
     selectTask: (state, action: PayloadAction<number>) => {
       if (action.payload === 0) {
         state.selectedTask = 0;
@@ -95,22 +114,25 @@ export const dataSlice = createSlice({
           return;
         }
       }
-      console.log(originTasks);
-      console.log([
-        ...originTasks.slice(0, idx),
-        ...originTasks.slice(idx + 1),
-      ]);
+      /*
+       *console.log(originTasks);
+       *console.log([
+       *  ...originTasks.slice(0, idx),
+       *  ...originTasks.slice(idx + 1),
+       *]);
+       */
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
-
-      // state.tasks = [
-      //...originTasks.slice(0, idx),
-      //...originTasks.slice(idx + 1),
-      //];
     },
   },
 });
 
-export const { newclock, newTask, selectTask, updateTask, deleteTask } =
-  dataSlice.actions;
+export const {
+  newclock,
+  newTask,
+  selectTask,
+  updateTask,
+  deleteTask,
+  finishTask,
+} = dataSlice.actions;
 
 export default dataSlice.reducer;
