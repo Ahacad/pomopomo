@@ -173,7 +173,7 @@ function Task({ taskData }: { taskData: taskType }) {
       >
         <div className="flex">
           <RiCheckboxCircleLine
-            className="mt-2 mr-1"
+              className={`mt-2 mr-1 hover:text-gray-400`}
             onClick={handleFinishTask}
           />
           {taskData.name}
