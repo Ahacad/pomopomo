@@ -84,7 +84,7 @@ export const dataSlice = createSlice({
         }
       }
       unfinishedTask[0].finished = false;
-      state.finishedTasks.push(unfinishedTask[0]);
+      state.tasks.push(unfinishedTask[0]);
     },
     selectTask: (state, action: PayloadAction<number>) => {
       if (action.payload === 0) {
@@ -133,6 +133,7 @@ export const {
   updateTask,
   deleteTask,
   finishTask,
+  unfinishTask,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;

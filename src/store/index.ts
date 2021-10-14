@@ -34,9 +34,10 @@ if (loadedState.data.finishedTasks === undefined) {
   loadedState.data.finishedTasks = [];
 }
 for (const task of loadedState.data.tasks) {
-  if (task.finished === undefined) {
     task.finished = false;
-  }
+}
+for (const task of loadedState.data.finishedTasks) {
+  task.finished = true;
 }
 
 console.log(loadedState);

@@ -3,6 +3,7 @@ import { newclock } from "./store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
   finishTask,
+  unfinishTask,
   selectTask,
   updateTask,
   newTask,
@@ -165,7 +166,11 @@ function Task({ taskData }: { taskData: taskType }) {
   }
   function handleFinishTask(event: React.MouseEvent) {
     event.stopPropagation();
-    dispatch(finishTask(taskData.id));
+    if (!taskData.finished) {
+      dispatch(finishTask(taskData.id));
+    } else {
+      dispatch(unfinishTask(taskData.id));
+    }
   }
 
   return (
@@ -324,11 +329,12 @@ function FinishedTaskList() {
       {tasks.map((task: taskType) => (
         <Task key={task.id} taskData={task} />
       ))}
+      and
     </>
   );
 }
 export default function Tasks() {
-  const [tabVal, setTabVal] = useState(0);
+  const [tabVal, setTabVal] = useState<number>(0);
   const handleChangeTab = (event: any, newValue: number) => {
     setTabVal(newValue);
   };
@@ -337,7 +343,7 @@ export default function Tasks() {
   return (
     <div className="">
       <div className="w-96 mt-10">
-        <Tabs centered onChange={handleChangeTab}>
+        <Tabs value={tabVal} centered onChange={handleChangeTab}>
           {/*
  // @ts-ignore */}
           <AntTab label="Tasks" />
