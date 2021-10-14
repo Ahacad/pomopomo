@@ -9,10 +9,13 @@ import {
   deleteTask,
 } from "./store/dataSlice";
 
+import { styled } from "@mui/material/styles";
 import { RiCheckboxCircleLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { Task as taskType, RootState } from "./types";
+
+import { Tab, Tabs } from "@mui/material";
 
 function Config({ clickHandler }: { clickHandler: () => void }) {
   function handleClick(event: React.MouseEvent) {
@@ -173,7 +176,7 @@ function Task({ taskData }: { taskData: taskType }) {
       >
         <div className="flex">
           <RiCheckboxCircleLine
-              className={`mt-2 mr-1 hover:text-gray-400`}
+            className={`mt-2 mr-1 hover:text-gray-400`}
             onClick={handleFinishTask}
           />
           {taskData.name}
@@ -300,16 +303,49 @@ function AddTask() {
     </>
   );
 }
-export default function Tasks() {
+const AntTab = styled((props) => <Tab {...props} />)(({ theme }) => ({
+  color: "white",
+}));
+function TaskList() {
   const tasks = useSelector((state: RootState) => state.data.tasks);
+  return (
+    <>
+      {tasks.map((task: taskType) => (
+        <Task key={task.id} taskData={task} />
+      ))}
+      <AddTask />
+    </>
+  );
+}
+function FinishedTaskList() {
+  const tasks = useSelector((state: RootState) => state.data.finishedTasks);
+  return (
+    <>
+      {tasks.map((task: taskType) => (
+        <Task key={task.id} taskData={task} />
+      ))}
+    </>
+  );
+}
+export default function Tasks() {
+  const [tabVal, setTabVal] = useState(0);
+  const handleChangeTab = (event: any, newValue: number) => {
+    setTabVal(newValue);
+  };
 
+  // @ts-nocheck
   return (
     <div className="">
       <div className="w-96 mt-10">
-        {tasks.map((task: taskType) => (
-          <Task key={task.id} taskData={task} />
-        ))}
-        <AddTask />
+        <Tabs centered onChange={handleChangeTab}>
+          {/*
+ // @ts-ignore */}
+          <AntTab label="Tasks" />
+          {/*
+ // @ts-ignore */}
+          <AntTab label="Finished" />
+        </Tabs>
+        {tabVal === 0 ? <TaskList /> : <FinishedTaskList />}
       </div>
     </div>
   );
