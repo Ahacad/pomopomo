@@ -16,6 +16,7 @@ const initialState: DataState = {
   ],
   finishedTasks: [],
   selectedTask: 0,
+  nextTaskId: 1,
 };
 
 export const dataSlice = createSlice({
@@ -52,17 +53,13 @@ export const dataSlice = createSlice({
       }
     },
     newTask: (state, action: PayloadAction<AddTaskType>) => {
-      // TODO: mantain max id as state
-      const taskMaxId =
-        state.tasks.reduce((prev, curr) => {
-          return Math.max(prev, curr.id);
-        }, 0) + 1;
       state.tasks.push({
-        id: taskMaxId,
+        id: state.nextTaskId,
         finishedPomodoro: 0,
         name: action.payload.name,
         estimationPomodoro: action.payload.estimationPomodoro,
       });
+      state.nextTaskId += 1;
     },
     finishTask: (state, action: PayloadAction<number>) => {
       let finishedTask: Task[] = [];

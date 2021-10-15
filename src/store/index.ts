@@ -34,10 +34,25 @@ if (loadedState.data.finishedTasks === undefined) {
   loadedState.data.finishedTasks = [];
 }
 for (const task of loadedState.data.tasks) {
-    task.finished = false;
+  task.finished = false;
 }
 for (const task of loadedState.data.finishedTasks) {
   task.finished = true;
+}
+if (loadedState.data.nextTaskId === undefined) {
+  loadedState.data.nextTaskId = 0;
+  for (const task of loadedState.data.tasks) {
+    loadedState.data.nextTaskId = Math.max(
+      loadedState.data.nextTaskId,
+      task.id
+    );
+  }
+  for (const task of loadedState.data.finishedTasks) {
+    loadedState.data.nextTaskId = Math.max(
+      loadedState.data.nextTaskId,
+      task.id
+    );
+  }
 }
 
 console.log(loadedState);
