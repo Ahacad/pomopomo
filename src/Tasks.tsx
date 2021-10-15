@@ -328,7 +328,6 @@ function FinishedTaskList() {
       {tasks.map((task: taskType) => (
         <Task key={task.id} taskData={task} />
       ))}
-      and
     </>
   );
 }
