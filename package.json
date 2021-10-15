@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build --base=/pomopomo/",
+    "build": "tsc && vite build",
     "serve": "vite preview",
     "release": "zx scripts/release.mjs"
   },

@@ -20,7 +20,7 @@ jobs:
           npm install -g pnpm && pnpm install
       - name: Build application
         run: |
-          pnpm run build
+          pnpm run build -- --base /pomopomo/
       - name: Deploy pages
         uses: crazy-max/ghaction-github-pages@v2.3.0
         with:
