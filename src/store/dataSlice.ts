@@ -106,14 +106,16 @@ export const dataSlice = createSlice({
       }
     },
     deleteTask: (state, action: PayloadAction<number>) => {
-      const originTasks = state.tasks;
-      let idx = originTasks.length;
-      for (const [index, task] of state.tasks.entries()) {
-        if (index === action.payload) {
-          idx = index;
-          return;
-        }
-      }
+      /*
+       *const originTasks = state.tasks;
+       *let idx = originTasks.length;
+       *for (const [index, task] of state.tasks.entries()) {
+       *  if (index === action.payload) {
+       *    idx = index;
+       *    return;
+       *  }
+       *}
+       */
       /*
        *console.log(originTasks);
        *console.log([
