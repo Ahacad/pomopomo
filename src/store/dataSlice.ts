@@ -16,7 +16,7 @@ const initialState: DataState = {
   ],
   finishedTasks: [],
   selectedTask: 0,
-  nextTaskId: 1,
+  nextTaskId: 3,
 };
 
 export const dataSlice = createSlice({
