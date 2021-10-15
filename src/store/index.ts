@@ -26,32 +26,33 @@ export const saveState = (state: RootState) => {
 
 const loadedState = loadState();
 if (loadedState != undefined) {
+  // stop running pomodoro
   loadedState.clock.clockRunning = false;
-}
 
-// adapt to previous version of stores
-if (loadedState.data.finishedTasks === undefined) {
-  loadedState.data.finishedTasks = [];
-}
-for (const task of loadedState.data.tasks) {
-  task.finished = false;
-}
-for (const task of loadedState.data.finishedTasks) {
-  task.finished = true;
-}
-if (loadedState.data.nextTaskId === undefined) {
-  loadedState.data.nextTaskId = 0;
+  // adapt to previous version of stores
+  if (loadedState.data.finishedTasks === undefined) {
+    loadedState.data.finishedTasks = [];
+  }
   for (const task of loadedState.data.tasks) {
-    loadedState.data.nextTaskId = Math.max(
-      loadedState.data.nextTaskId,
-      task.id
-    );
+    task.finished = false;
   }
   for (const task of loadedState.data.finishedTasks) {
-    loadedState.data.nextTaskId = Math.max(
-      loadedState.data.nextTaskId,
-      task.id
-    );
+    task.finished = true;
+  }
+  if (loadedState.data.nextTaskId === undefined) {
+    loadedState.data.nextTaskId = 0;
+    for (const task of loadedState.data.tasks) {
+      loadedState.data.nextTaskId = Math.max(
+        loadedState.data.nextTaskId,
+        task.id
+      );
+    }
+    for (const task of loadedState.data.finishedTasks) {
+      loadedState.data.nextTaskId = Math.max(
+        loadedState.data.nextTaskId,
+        task.id
+      );
+    }
   }
 }
 
