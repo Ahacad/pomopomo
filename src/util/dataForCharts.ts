@@ -6,7 +6,6 @@ export function getDaysData() {
   // get days data for vivo, example format: [{ x: "2021-10-10", y: 10 }]
   const days = useSelector((state: RootState) => state.data.days);
 
-  console.log("HELLO", days);
   const daysdata = new Map();
   for (const day in days) {
     daysdata.set(day, days[day].length);
