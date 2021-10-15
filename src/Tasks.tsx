@@ -15,7 +15,6 @@ import { RiCheckboxCircleLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { Task as taskType, RootState } from "./types";
-
 import { Tab, Tabs } from "@mui/material";
 
 function Config({ clickHandler }: { clickHandler: () => void }) {
