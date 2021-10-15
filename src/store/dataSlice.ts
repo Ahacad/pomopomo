@@ -86,8 +86,6 @@ export const dataSlice = createSlice({
     selectTask: (state, action: PayloadAction<number>) => {
       if (action.payload === 0) {
         state.selectedTask = 0;
-      } else if (action.payload > state.tasks.length) {
-        state.selectedTask = 0;
       } else {
         state.selectedTask = action.payload;
       }
