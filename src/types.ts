@@ -59,6 +59,7 @@ export interface DataState {
   tasks: Task[];
   finishedTasks: Task[];
   // projects: Project[];
+  nextTaskId: number;
   selectedTask: number;
 }
 export interface RootState {

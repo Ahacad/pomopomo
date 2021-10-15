@@ -39,6 +39,7 @@ if (loadedState != undefined) {
   for (const task of loadedState.data.finishedTasks) {
     task.finished = true;
   }
+
   if (loadedState.data.nextTaskId === undefined) {
     loadedState.data.nextTaskId = 0;
     for (const task of loadedState.data.tasks) {
@@ -53,6 +54,7 @@ if (loadedState != undefined) {
         task.id
       );
     }
+    loadedState.data.nextTaskId += 1;
   }
 }
 
