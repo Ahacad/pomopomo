@@ -60,6 +60,7 @@ export const dataSlice = createSlice({
         estimationPomodoro: action.payload.estimationPomodoro,
       });
       state.nextTaskId += 1;
+        // TODO: note for tasks
     },
     finishTask: (state, action: PayloadAction<number>) => {
       let finishedTask: Task[] = [];
