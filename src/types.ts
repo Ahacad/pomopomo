@@ -61,7 +61,6 @@ export interface DataState {
   // projects: Project[];
   nextTaskId: number;
   selectedTask: number;
-  note: string;
 }
 export interface RootState {
   config: ConfigState;
