@@ -40,7 +40,7 @@ if (loadedState != undefined) {
   for (const task of loadedState.data.finishedTasks) {
     task.finished = true;
   }
-
+  /* fix nextTaskId */
   if (loadedState.data.nextTaskId === undefined) {
     loadedState.data.nextTaskId = 0;
     for (const task of loadedState.data.tasks) {
@@ -56,6 +56,23 @@ if (loadedState != undefined) {
       );
     }
     loadedState.data.nextTaskId += 1;
+  }
+  /* fix nextProjectId */
+  if (loadedState.data.nextProjectId === undefined) {
+    loadedState.data.nextProjectId = 0;
+    for (const task of loadedState.data.tasks) {
+      loadedState.data.nextProjectId = Math.max(
+        loadedState.data.nextProjectId,
+        task.id
+      );
+    }
+    for (const task of loadedState.data.finishedTasks) {
+      loadedState.data.nextProjectId = Math.max(
+        loadedState.data.nextProjectId,
+        task.id
+      );
+    }
+    loadedState.data.nextProjectId += 1;
   }
 }
 console.log(loadedState);
