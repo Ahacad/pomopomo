@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^1.6.1",
     "d3": "^7.1.1",
     "react": "^17.0.0",
+    "react-animate-mount": "^1.0.1",
     "react-dom": "^17.0.0",
     "react-icons": "^4.2.0",
     "react-redux": "^7.2.5"

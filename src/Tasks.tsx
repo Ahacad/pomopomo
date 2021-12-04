@@ -17,6 +17,8 @@ import { HiOutlinePlusCircle } from "react-icons/hi";
 import { Task as taskType, RootState } from "./types";
 import { Tab, Tabs } from "@mui/material";
 
+import { Animate } from "react-animate-mount";
+
 function Config({ clickHandler }: { clickHandler: () => void }) {
   function handleClick(event: React.MouseEvent) {
     event.stopPropagation();
@@ -191,15 +193,13 @@ function Task({ taskData }: { taskData: taskType }) {
           <Config clickHandler={clickConfig} />
         </div>
       </button>
-      {showEditForm ? (
+      <Animate show={showEditForm}>
         <EditForm
           taskData={taskData}
           cancelHandler={handleCancelEdit}
           deleteHandler={handleDelete}
         />
-      ) : (
-        <></>
-      )}
+      </Animate>
     </>
   );
 }
@@ -240,7 +240,7 @@ function AddTask() {
   };
   return (
     <>
-      {showAddTask ? (
+      <Animate show={showAddTask}>
         <div
           className="h-12 bg-black opacity-10 hover:opacity-20 py-1 rounded-md cursor-pointer"
           onClick={handleAddTask}
@@ -251,7 +251,8 @@ function AddTask() {
             </div>
           </div>
         </div>
-      ) : (
+      </Animate>
+      <Animate show={!showAddTask}>
         <div className="w-full">
           <form className="bg-white shadow-md rounded-md px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
@@ -303,7 +304,7 @@ function AddTask() {
             </div>
           </form>
         </div>
-      )}
+      </Animate>
     </>
   );
 }
@@ -349,7 +350,12 @@ export default function Tasks() {
  // @ts-ignore */}
           <AntTab label="Finished" />
         </Tabs>
-        {tabVal === 0 ? <TaskList /> : <FinishedTaskList />}
+        <Animate show={tabVal === 0}>
+          <TaskList />
+        </Animate>
+        <Animate show={tabVal === 1}>
+          <FinishedTaskList />
+        </Animate>
       </div>
     </div>
   );
