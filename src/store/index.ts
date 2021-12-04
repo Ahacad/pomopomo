@@ -24,6 +24,7 @@ export const saveState = (state: RootState) => {
   }
 };
 
+// load state saevd in localStorage and forward adapt
 const loadedState = loadState();
 if (loadedState != undefined) {
   // stop running pomodoro
@@ -57,7 +58,6 @@ if (loadedState != undefined) {
     loadedState.data.nextTaskId += 1;
   }
 }
-
 console.log(loadedState);
 
 const store = configureStore({
