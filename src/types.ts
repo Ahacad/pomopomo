@@ -54,7 +54,9 @@ export interface Task {
 export interface Project {
   id: number;
   name: string;
+  finishedPomodoro: number;
   note?: string;
+  TaskIds: Task[];
 }
 export interface DataState {
   days: Day;
