@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@emotion/react': ^11.4.1
   '@emotion/styled': ^11.3.0
+  '@mui/icons-material': ^5.2.0
   '@mui/material': ^5.0.3
   '@nivo/core': ^0.73.0
   '@nivo/line': ^0.73.0
@@ -29,6 +30,7 @@ specifiers:
 dependencies:
   '@emotion/react': 11.4.1_26a96a4441ab225e0159f41c8a2ae043
   '@emotion/styled': 11.3.0_0b09be189ab5d1f3a2b319bc6fdfbe95
+  '@mui/icons-material': 5.2.0_8a00998be9a296826015b3cda7670a29
   '@mui/material': 5.0.3_cc9d2d40d61aff1e3bfa1e435a29ecfa
   '@nivo/core': 0.73.0_react-dom@17.0.2+react@17.0.2
   '@nivo/line': 0.73.0_d2d88a10f5f59d9c4de0292bca2d5fe7
@@ -271,6 +273,13 @@ packages:
       regenerator-runtime: 0.13.9
     dev: false
 
+  /@babel/runtime/7.16.3:
+    resolution: {integrity: sha512-WBwekcqacdY2e9AF/Q7WLFUWmdJGJTkbjqTjoMDgXkVZ3ZRUvOPsLb5KdwISoQVsbP+DQzVZW4Zhci0DvpbNTQ==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.13.9
+    dev: false
+
   /@babel/template/7.15.4:
     resolution: {integrity: sha512-UgBAfEa1oGuYgDIPM2G+aHa4Nlo9Lh6mGD2bDBGMTbYnc38vulXPuC1MGjYILIEmlwl6Rd+BPR9ee3gm20CBtg==}
     engines: {node: '>=6.9.0'}
@@ -449,6 +458,23 @@ packages:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-is: 17.0.2
+    dev: false
+
+  /@mui/icons-material/5.2.0_8a00998be9a296826015b3cda7670a29:
+    resolution: {integrity: sha512-NvyrVaGKpP4R1yFw8BCnE0QcsQ67RtpgxPr4FtH8q60MDYPuPVczLOn5Ash5CFavoDWur/NfM/4DpT54yf3InA==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@mui/material': ^5.0.0
+      '@types/react': ^16.8.6 || ^17.0.0
+      react: ^17.0.2
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.16.3
+      '@mui/material': 5.0.3_cc9d2d40d61aff1e3bfa1e435a29ecfa
+      '@types/react': 17.0.29
+      react: 17.0.2
     dev: false
 
   /@mui/material/5.0.3_cc9d2d40d61aff1e3bfa1e435a29ecfa:
