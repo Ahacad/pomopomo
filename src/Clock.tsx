@@ -100,7 +100,7 @@ export default function Clock() {
         "Are you sure to skip this clock? (This one won't be counted as pomodoro in the report)"
       )
     ) {
-      clockFinished(false);
+      clockFinished(true);
     }
   }
 
