@@ -11,8 +11,8 @@ const getKeyValue =
 const initialState: DataState = {
   days: {},
   tasks: [
-    { id: 1, name: "Task1", finishedPomodoro: 0, estimationPomodoro: 0 },
-    { id: 2, name: "Task2", finishedPomodoro: 0, estimationPomodoro: 0 },
+      { id: 1, name: "Task1", finishedPomodoro: 0, estimationPomodoro: 0, note: "" },
+      { id: 2, name: "Task2", finishedPomodoro: 0, estimationPomodoro: 0, note: "" },
   ],
   finishedTasks: [],
   selectedTask: 0,
@@ -60,6 +60,7 @@ export const dataSlice = createSlice({
         estimationPomodoro: action.payload.estimationPomodoro,
       });
       state.nextTaskId += 1;
+        // TODO: note for tasks
     },
     finishTask: (state, action: PayloadAction<number>) => {
       let finishedTask: Task[] = [];

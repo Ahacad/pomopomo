@@ -36,9 +36,15 @@ if (loadedState != undefined) {
   }
   for (const task of loadedState.data.tasks) {
     task.finished = false;
+    if (task.note === undefined) {
+      task.note = "";
+    }
   }
   for (const task of loadedState.data.finishedTasks) {
     task.finished = true;
+    if (task.note === undefined) {
+      task.note = "";
+    }
   }
 
   if (loadedState.data.nextTaskId === undefined) {
